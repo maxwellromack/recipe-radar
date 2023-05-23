@@ -35,10 +35,11 @@ command to run if program contains helper info
 
 ## Authors
 
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+* Maxwell Romack
+* Saurabh Khanal
+* Laiba Farhan
+* Aida Téllez
+* Tanni Barua
 
 ## Version History
 
