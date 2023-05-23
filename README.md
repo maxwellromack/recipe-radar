@@ -55,4 +55,4 @@ This project is licensed under the [NAME HERE] License - see the LICENSE.md file
 
 ## Acknowledgments
 
-WIP
+* Recipes used in project are from [archive.org](https://archive.org/details/cooking-recipes)
