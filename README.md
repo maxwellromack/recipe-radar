@@ -49,10 +49,6 @@ command to run if program contains helper info
 * 0.1
     * Initial Release
 
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
 ## Acknowledgments
 
 * Recipes used in project are from [archive.org](https://archive.org/details/cooking-recipes)
