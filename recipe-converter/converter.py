@@ -4,7 +4,7 @@
 import bs4
 import os
 
-path = R'C:\Users\Max\Documents\GitHub\recipe-radar\recipe-converter\recipe-source'
+path = R'your path here'    # removed the actual hardcoded path to avoid accidental runs of the program
 id = 0
 with os.scandir(path) as dir:
     for entry in dir:
