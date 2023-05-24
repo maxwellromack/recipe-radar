@@ -3,6 +3,7 @@
 # Author: Maxwell Romack
 
 import sys
+import os
 
 messy = open(sys.argv[1], 'r')
 clean = open(sys.argv[2], 'wt')
@@ -14,7 +15,7 @@ messy.readline()
 title = messy.readline()
 clean.write("Title: " + title)
 
-while "time" not in messy.readline(): # this is stupid
+while "time" not in messy.readline(): # this is stupid, but it works
     continue
 
 # get prep time
@@ -72,3 +73,7 @@ while len(instruction.strip()) != 0:
     messy.readline()
     messy.readline()
     instruction = messy.readline()
+
+messy.close()
+clean.close()
+os.remove(sys.argv[1])
