@@ -1,7 +1,5 @@
 # Recipe Radar
 
-A simiple web application for recipe reccomendation based on ingredients that a user already has in their kitchen.
-
 ## Description
 
 An in-depth paragraph about your project and overview of use.
@@ -10,8 +8,7 @@ An in-depth paragraph about your project and overview of use.
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* [Flask](https://flask.palletsprojects.com/en/2.3.x/)
 
 ### Installing
 
