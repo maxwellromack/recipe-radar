@@ -1,12 +1,12 @@
 # Assists with cleaning up the converted recipes so I can be more lazy
-# Run as 'cleaner.py [messy file].txt [cleaned file].txt'
+# Run as 'cleaner.py [messy file] [cleaned file]'
 # Author: Maxwell Romack
 
 import sys
 import os
 
-messy = open(sys.argv[1], 'r')
-clean = open(sys.argv[2], 'wt')
+messy = open(sys.argv[1] + '.txt', 'r')
+clean = open(sys.argv[2] + '.txt', 'wt')
 
 messy.readline()
 messy.readline()
@@ -76,4 +76,4 @@ while len(instruction.strip()) != 0:
 
 messy.close()
 clean.close()
-os.remove(sys.argv[1])
+os.remove(sys.argv[1] + '.txt')
