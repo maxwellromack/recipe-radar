@@ -1,7 +1,5 @@
 # Recipe Radar
 
-A simiple web application for recipe reccomendation based on ingredients that a user already has in their kitchen.
-
 ## Description
 
 An in-depth paragraph about your project and overview of use.
