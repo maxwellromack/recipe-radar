@@ -5,7 +5,7 @@ from backend.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
-@bp.route('/register', methods = ('POST'))
+@bp.route('/register', methods = ['POST'])
 def register():
     data = request.get_json()
     username = data.get('username')
@@ -26,13 +26,13 @@ def register():
             )
             db.commit()
         except db.IntegrityError:   # username already exists
-            error = f"User {username} os already registered."
+            error = f"User {username} is already registered."
         else:
-            return jsonify({'message': 'Registration success'})
+            return jsonify({'message': 'Registration success'}), 201
 
     return jsonify({'error': error}), 400
 
-@bp.route('/login', methods = ('POST'))
+@bp.route('/login', methods = ['POST'])
 def login():
     data = request.get_json()
     username = data.get('username')
@@ -53,7 +53,7 @@ def login():
     if error is None:
         session.clear()
         session['user_id'] = user['id']
-        return jsonify({'message': 'Login success'})
+        return jsonify({'message': 'Login success'}), 200
     
     return jsonify({'error': error}), 400
 
@@ -71,7 +71,7 @@ def load_current_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return jsonify({'message': 'Logout success'})
+    return jsonify({'message': 'Logout success'}), 200
 
 def login_required(view):
     @functools.wraps(view)
