@@ -67,3 +67,8 @@ def load_current_user():
         g.user = get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return jsonify({'message': 'Logout success'})
