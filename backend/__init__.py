@@ -17,6 +17,10 @@ def create_app(test_config = None):
         os.makedirs(app.instance_path)
     except OSError:
         pass # TODO: exception handling
+    
+    @app.route('/example')  # remove once we get an actual landing page working
+    def example():
+        return "This is an example of a webpage!"
 
     from . import db
     db.init_app(app)
