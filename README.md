@@ -8,12 +8,14 @@ An in-depth paragraph about your project and overview of use.
 
 ### Dependencies
 
-* [Flask](https://flask.palletsprojects.com/en/2.3.x/)
+* Recipe-Radar-API (Included)
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+The backend API and all dependencies can be installed with the following command from inside the project folder:
+```
+pip install dist/Recipe-Radar-API-x.x.x.tar.gz
+```
 
 ### Executing program
 
@@ -35,7 +37,6 @@ command to run if program contains helper info
 * Maxwell Romack
 * Saurabh Khanal
 * Laiba Farhan
-* Aida Téllez
 * Tanni Barua
 
 ## Version History
