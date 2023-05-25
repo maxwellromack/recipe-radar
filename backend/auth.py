@@ -72,3 +72,12 @@ def load_current_user():
 def logout():
     session.clear()
     return jsonify({'message': 'Logout success'})
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return jsonify({'error': 'Not signed in'}), 401
+        
+        return view(**kwargs)
+    return wrapped_view
