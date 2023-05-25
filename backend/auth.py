@@ -26,9 +26,9 @@ def register():
             )
             db.commit()
         except db.IntegrityError:   # username already exists
-            error = f"User {username} os already registered."
+            error = f"User {username} is already registered."
         else:
-            return jsonify({'message': 'Registration success'})
+            return jsonify({'message': 'Registration success'}), 201
 
     return jsonify({'error': error}), 400
 
