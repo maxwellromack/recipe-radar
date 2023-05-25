@@ -8,6 +8,7 @@ An in-depth paragraph about your project and overview of use.
 
 ### Dependencies
 
+* [Flask](https://pypi.org/project/Flask/)
 * Recipe-Radar-API (Included)
 
 ### Installing
