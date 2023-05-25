@@ -14,5 +14,4 @@ htmlcov/
 build/
 *.egg-info/
 
-backend/recipe_converter/recipe_source/
-backend/recipe_converter/recipe_converted/*.txt
+backend/recipe_converter/
