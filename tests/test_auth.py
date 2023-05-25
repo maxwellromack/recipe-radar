@@ -62,3 +62,10 @@ def test_login_validate_input(client, username, password, message):
     assert response.status_code == 400
     recieved_message = json.loads(response.get_json())
     assert message in recieved_message['error']
+
+def test_logout(client, auth):
+    auth.login()
+
+    with client:
+        client.get('/auth/logout')
+        assert 'user_id' not in session
