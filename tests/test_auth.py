@@ -10,15 +10,15 @@ def test_register(client):
     }
 
     json_payload = json.dumps(payload)
-    response = client.post('/auth/register', data = json_payload, content_type = 'application/json')
+    response = client.post('/auth/register', data = json_payload.encode('utf8'), content_type = 'application/json')
     
     assert response.status_code == 201
-    assert response.get_json() == {'message': 'Registation success'}
+    assert response.get_json() == {'message': 'Registration success'}
 
 @pytest.mark.parametrize(('username', 'password', 'message'),(
-    ('', '', b'Username is required'),
-    ('robert', '', b'Password is required'),
-    ('test', 'test', b'already registered'),
+    ('', '', 'Username is required'),
+    ('robert', '', 'Password is required'),
+    ('test', 'test', 'already registered'),
 ))
 def test_register_validate_input(client, username, password, message):
     payload = {
@@ -27,10 +27,10 @@ def test_register_validate_input(client, username, password, message):
     }
 
     json_payload = json.dumps(payload)
-    response = client.post('/auth/register', data = json_payload, content_type = 'application/json')
+    response = client.post('/auth/register', data = json_payload.encode('utf8'), content_type = 'application/json')
 
     assert response.status_code == 400
-    recieved_message = json.loads(response.get_json())
+    recieved_message = response.get_json()
     assert message in recieved_message['error']
 
 def test_login(client):
@@ -40,15 +40,15 @@ def test_login(client):
     }
 
     json_payload = json.dumps(payload)
-    response = client.post('auth/login', data = json_payload, content_type = 'application/json')
+    response = client.post('/auth/login', data = json_payload.encode('utf8'), content_type = 'application/json')
 
     assert response.status_code == 200
     assert session['user_id'] == 1
     assert g.user['username'] == 'test'
 
 @pytest.mark.parametrize(('username', 'password', 'message'), (
-    ('a', 'test', b'Incorrect username'),
-    ('test', 'a', b'Incorrect password'),
+    ('a', 'test', 'Incorrect username'),
+    ('test', 'a', 'Incorrect password'),
 ))
 def test_login_validate_input(client, username, password, message):
     payload = {
@@ -57,10 +57,10 @@ def test_login_validate_input(client, username, password, message):
     }
 
     json_payload = json.dumps(payload)
-    response = client.post('/auth/login', data = json_payload, content_type = 'application/json')
+    response = client.post('/auth/login', data = json_payload.encode('utf8'), content_type = 'application/json')
 
     assert response.status_code == 400
-    recieved_message = json.loads(response.get_json())
+    recieved_message = response.get_json()
     assert message in recieved_message['error']
 
 def test_logout(client, auth):

@@ -45,7 +45,7 @@ class AuthActions(object):
         }
 
         json_payload = json.dumps(payload)
-        return self._client.post('auth/login', data = json_payload, content_type = 'application/json')
+        return self._client.post('auth/login', data = json_payload.encode('utf8'), content_type = 'application/json')
     
 @pytest.fixture
 def auth(client):
