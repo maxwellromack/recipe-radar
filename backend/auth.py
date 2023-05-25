@@ -53,7 +53,7 @@ def login():
     if error is None:
         session.clear()
         session['user_id'] = user['id']
-        return jsonify({'message': 'Login success'})
+        return jsonify({'message': 'Login success'}), 200
     
     return jsonify({'error': error}), 400
 
