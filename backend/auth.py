@@ -5,7 +5,7 @@ from backend.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
-@bp.route('/register', methods = ('POST'))
+@bp.route('/register', methods = ['POST'])
 def register():
     data = request.get_json()
     username = data.get('username')
@@ -32,7 +32,7 @@ def register():
 
     return jsonify({'error': error}), 400
 
-@bp.route('/login', methods = ('POST'))
+@bp.route('/login', methods = ['POST'])
 def login():
     data = request.get_json()
     username = data.get('username')
