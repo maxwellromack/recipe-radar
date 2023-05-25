@@ -71,7 +71,7 @@ def load_current_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return jsonify({'message': 'Logout success'})
+    return jsonify({'message': 'Logout success'}), 200
 
 def login_required(view):
     @functools.wraps(view)
