@@ -1,5 +1,6 @@
 import os
 import tempfile
+import json
 import pytest
 from backend import create_app
 from backend.db import get_db, init_db
@@ -32,3 +33,16 @@ def client(app):
 @pytest.fixture
 def runner(app):
     return app.test_cli_runner()
+
+class AuthActions(object):
+    def __init__(self, client):
+        self._client = client
+
+    def login(self):
+        payload = {
+        'username': 'test',
+        'password': 'test'
+        }
+
+        json_payload = json.dumps(payload)
+        return self._client.post('auth/login', data = json_payload, content_type = 'application/json')
