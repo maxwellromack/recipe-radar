@@ -38,10 +38,19 @@ class AuthActions(object):
     def __init__(self, client):
         self._client = client
 
+    def register(self):
+        payload = {
+            'username': 'guitarhero',
+            'password': 'jimihen'
+        }
+
+        json_payload = json.dumps(payload)
+        self._client.post('/auth/register', data = json_payload.encode('utf8'), content_type = 'application/json')
+
     def login(self):
         payload = {
-        'username': 'test',
-        'password': 'test'
+        'username': 'guitarhero',
+        'password': 'jimihen'
         }
 
         json_payload = json.dumps(payload)
