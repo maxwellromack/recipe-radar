@@ -15,7 +15,7 @@ An in-depth paragraph about your project and overview of use.
 
 The backend API and all dependencies can be installed with the following command from inside the project folder:
 ```
-pip install dist/Recipe-Radar-API-x.x.x.tar.gz
+pip install -e .
 ```
 
 ### Executing program
