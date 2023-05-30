@@ -31,8 +31,7 @@ WIP
 
 ## Version History
 
-* 0.1
-    * Initial release
+WIP
 
 ## Acknowledgments
 
