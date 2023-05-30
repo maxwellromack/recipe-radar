@@ -1,4 +1,5 @@
 # Gets the number of times each ingredient occurs in a recipe in the recipes folder.
+# Using the counts, creates a file listing the 32 most common ingredients.
 # Author: Maxwell Romack
 
 from collections import Counter
