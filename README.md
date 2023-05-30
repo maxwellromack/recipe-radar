@@ -2,7 +2,7 @@
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+WIP
 
 ## Getting Started
 
@@ -20,18 +20,7 @@ pip install -e .
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+WIP
 
 ## Authors
 
@@ -42,9 +31,8 @@ command to run if program contains helper info
 
 ## Version History
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
+* 0.1
+    * Initial release
 
 ## Acknowledgments
 
