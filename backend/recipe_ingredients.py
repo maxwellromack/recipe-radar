@@ -25,4 +25,5 @@ for id in range(num_recipes):
     with open(path, 'r') as check:
         if 'METADATA:' not in check:    # Prevents adding the ingredients metadata to file if it already exists
             with open(path, 'a') as file:
-                file.write('METADATA: ' + str(get_ingredients(path)) + '\n')
+                file.write('\nMETADATA: ' + str(get_ingredients(path)) + '\n')
+
