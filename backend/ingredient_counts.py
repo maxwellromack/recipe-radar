@@ -45,5 +45,15 @@ for id in range(num_recipes):
     while 'Instructions:' not in line:
         ingredients.append(clean(line))
         line = file.readline()
+    
+    file.close()
 
-print(Counter(ingredients).most_common(33)) # For some reason empty lines are counted as an ingredient, so we take the 33 most common to account for that
+ingredients_list = Counter(ingredients).most_common(33) # For some reason empty lines are counted as an ingredient, so we take the 33 most common to account for that
+
+file = open('common_ingredients.txt', 'w')    # Creates a file storing the most common ingredients.
+
+for ingredient in ingredients_list:
+    if ingredient[0]:   # Gets rid of that annoying empty string
+        file.write(ingredient[0] + '\n')
+
+file.close()
