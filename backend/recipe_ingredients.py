@@ -1,4 +1,5 @@
 # Using the most common ingredients found in ingredient_counts.py, finds occurances of those ingredients in the recipies.
+# Adds the ingredients as metadata to any files that do not already have it.
 # Author: Maxwell Romack
 
 prefix = 'recipes/'
