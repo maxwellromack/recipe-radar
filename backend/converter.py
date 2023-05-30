@@ -1,10 +1,11 @@
 # Converts html recipe files into text files
+# DEPRECIATED AS OF 5/30/23
 # Author: Maxwell Romack
 
 import bs4
 import os
 
-path = R'C:\Users\Max\Documents\GitHub\recipe-radar\recipe-converter\recipe-source'
+path = ''
 id = 0
 with os.scandir(path) as dir:
     for entry in dir:

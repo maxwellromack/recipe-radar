@@ -1,5 +1,6 @@
 # Assists with cleaning up the converted recipes so I can be more lazy
 # Run as 'cleaner.py [messy file] [cleaned file]'
+# DEPRECIATED AS OF 5/30/23
 # Author: Maxwell Romack
 
 import sys
