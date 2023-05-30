@@ -8,4 +8,7 @@ CREATE TABLE user (
     -- TODO: add column for user saved ingredients
 );
 
--- TODO: create recipe table
+CREATE TABLE recipe (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ingredients INTEGER NOT NULL
+)
