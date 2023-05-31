@@ -67,7 +67,10 @@ def add_recipes():  # Adds new recipes to the database
                 )
                 db.commit()
                 recipes_added += 1
+
     return recipes_added
+
+# TODO: Update recipes command to update the ingredients value if it does not match the value on the file.
 
 @click.command('init-db')
 def init_db_command():
