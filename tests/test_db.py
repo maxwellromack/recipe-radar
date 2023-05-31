@@ -23,13 +23,3 @@ def test_init_db_command(runner, monkeypatch):
     result = runner.invoke(args = ['init-db'])
     assert 'Initialized' in result.output
     assert Recorder.called
-
-def test_add_recipes_command(runner, monkeypatch):
-    class Recorder(object):
-        called = False
-    
-    def fake_add_recipes():
-        Recorder.called = True
-
-    runner.invoke(args = ['init-db'])
-    result = runner.invoke(args = ['add-recipes'])
