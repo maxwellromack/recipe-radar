@@ -20,7 +20,15 @@ pip install -e .
 
 ### Executing program
 
-WIP
+To start the Flask backend, execute the following command from inside the project folder:
+```
+flask --app backend run
+```
+
+To initialize the database, execute the following command in a seperate terminal window:
+```
+flask --app backend init-db
+```
 
 ## Authors
 
