@@ -44,7 +44,8 @@ flask --app backend add-recipes
 
 ## Version History
 
-WIP
+* 0.1
+  *  Initial release
 
 ## Acknowledgments
 
