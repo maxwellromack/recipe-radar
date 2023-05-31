@@ -4,8 +4,10 @@
 
 from collections import Counter
 
+import os
+
 prefix = 'recipes/'
-num_recipes = 100   # Change based on how many recipes are in the /recipes folder
+num_recipes = 0   # Change based on how many recipes are in the /recipes folder
 ingredients = []    # Empty list for storing the ingredients
 
 def clean(string):  # Removes any numbers from the string as well as units of measurement
@@ -32,6 +34,19 @@ def clean(string):  # Removes any numbers from the string as well as units of me
         string = string[1:]
     string = string.strip()
     return string
+
+#Check the function to count the number of files
+dir_path = r"backend/recipes/"
+list = os.listdir(dir_path)
+
+#print(list)
+for f in list:
+    #check if current path is a file
+    if os.path.isfile(os.path.join(dir_path,f)):
+        num_recipes +=1
+        
+print('File count:', num_recipes)
+
 
 
 for id in range(num_recipes):
