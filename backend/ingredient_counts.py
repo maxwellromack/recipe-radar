@@ -1,13 +1,11 @@
 # Gets the number of times each ingredient occurs in a recipe in the recipes folder.
 # Using the counts, creates a file listing the 32 most common ingredients.
-# Author: Maxwell Romack
 
 from collections import Counter
-
 import os
 
 prefix = 'recipes/'
-num_recipes = 0   # Change based on how many recipes are in the /recipes folder
+num_recipes = 0
 ingredients = []    # Empty list for storing the ingredients
 
 def clean(string):  # Removes any numbers from the string as well as units of measurement
@@ -35,19 +33,12 @@ def clean(string):  # Removes any numbers from the string as well as units of me
     string = string.strip()
     return string
 
-#Check the function to count the number of files
-dir_path = r"backend/recipes/"
-list = os.listdir(dir_path)
+list = os.listdir(prefix)
 
-#print(list)
 for f in list:
     #check if current path is a file
-    if os.path.isfile(os.path.join(dir_path,f)):
+    if os.path.isfile(os.path.join(prefix,f)):
         num_recipes +=1
-        
-print('File count:', num_recipes)
-
-
 
 for id in range(num_recipes):
     path = prefix + str(id) + '.txt'
