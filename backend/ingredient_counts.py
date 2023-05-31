@@ -33,6 +33,21 @@ def clean(string):  # Removes any numbers from the string as well as units of me
     string = string.strip()
     return string
 
+def get_ingredients(path):
+    ingredients_list = []
+    with open('common_ingredients.txt') as common:
+        for ingredient in common:
+            file = open(path, 'r')
+            if ingredient in file.read():
+                ingredients_list.append(1)
+            else:
+                ingredients_list.append(0)
+            file.close()
+
+    bin_string = ''
+    for digit in ingredients_list:
+        bin_string += str(digit)
+
 list = os.listdir(prefix)
 
 for f in list:
@@ -64,3 +79,10 @@ for ingredient in ingredients_list:
         file.write(ingredient[0] + '\n')
 
 file.close()
+
+for id in range(num_recipes):
+    path = prefix + str(id) + '.txt'
+    with open(path, 'r') as check:
+        if 'METADATA:' not in check:    # Prevents adding the ingredients metadata to file if it already exists
+            with open(path, 'a') as file:
+                file.write('\nMETADATA: ' + str(get_ingredients(path)) + '\n')
