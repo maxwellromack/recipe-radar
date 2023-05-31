@@ -47,14 +47,6 @@ def get_ingredients(path):
     bin_string = ''
     for digit in ingredients_list:
         bin_string += str(digit)
-    return int(bin_string, 2)   # Converts the binary string to an int
-
-for id in range(num_recipes):
-    path = prefix + str(id) + '.txt'
-    with open(path, 'r') as check:
-        if 'METADATA:' not in check:    # Prevents adding the ingredients metadata to file if it already exists
-            with open(path, 'a') as file:
-                file.write('\nMETADATA: ' + str(get_ingredients(path)) + '\n')
 
 list = os.listdir(prefix)
 
@@ -88,6 +80,9 @@ for ingredient in ingredients_list:
 
 file.close()
 
-
-
-
+for id in range(num_recipes):
+    path = prefix + str(id) + '.txt'
+    with open(path, 'r') as check:
+        if 'METADATA:' not in check:    # Prevents adding the ingredients metadata to file if it already exists
+            with open(path, 'a') as file:
+                file.write('\nMETADATA: ' + str(get_ingredients(path)) + '\n')
