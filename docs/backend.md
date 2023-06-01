@@ -44,3 +44,24 @@ Request Type: GET
 Clears the current session, logging out the user.
 
 Returns status code 200 for a successful logout.
+
+## /user
+
+The '/user' prefix is used for updating entries in the user table that is not related to authentication
+
+### /update
+
+URL: '/user/update'    
+Request Type: POST
+
+The update endpoint takes a JSON payload containing an interger value that, when converted to a binary string, represents the ingredients that the user has in their kitchen.
+
+Example Payload:
+```
+payload = {
+    'ingredients': 6
+}
+```
+
+Returns status code 400 if no ingredients are passed in the payload.    
+Returns status code 201 for a successful update.
