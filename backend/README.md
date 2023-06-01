@@ -6,7 +6,7 @@ The '/auth' prefix is used for every API endpoint that deals with user account c
 
 ### /register
 
-URL : '/auth/register'
+URL : '/auth/register'    
 Request Type: POST
 
 The register endpoint takes a JSON payload containing a username and password and creates a new user account if the user is not already registered. Both the username and the password are required.
