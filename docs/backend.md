@@ -34,3 +34,13 @@ See the '/register' documentation for an example payload.
 
 Returns status code 400 if the username or password is incorrect.    
 Returns status code 200 for a successful login.
+
+
+### /logout
+
+URL: '/auth/logout'    
+Request Type: GET
+
+Clears the current session, logging out the user.
+
+Returns status code 200 for a successful logout.
