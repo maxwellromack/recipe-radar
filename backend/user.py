@@ -12,6 +12,9 @@ def update():
     db = get_db()
     error = None
 
+    if not type(ingredients) is int:
+        error = 'Ingredients must be of type integer'
+
     if not ingredients: # if this ever happens then something is really broken
         error = 'Ingredients are required'
 
