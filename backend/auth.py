@@ -73,11 +73,11 @@ def logout():
     session.clear()
     return jsonify({'message': 'Logout success'}), 200
 
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return jsonify({'error': 'Not signed in'}), 401
-        
-        return view(**kwargs)
-    return wrapped_view
+# def login_required(view):
+#     @functools.wraps(view)
+#     def wrapped_view(**kwargs):
+#         if g.user is None:
+#             return jsonify({'error': 'Not signed in'}), 401
+#     
+#         return view(**kwargs)
+#     return wrapped_view
