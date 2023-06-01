@@ -23,3 +23,5 @@ def test_update(client, auth):
     ))).fetchone[0]
 
     assert user_ingredients == 6
+
+# TODO: add test for when no ingredients are sent in the payload
