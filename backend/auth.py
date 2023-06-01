@@ -78,6 +78,6 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             return jsonify({'error': 'Not signed in'}), 401
-        
+    
         return view(**kwargs)
     return wrapped_view
