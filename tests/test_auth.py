@@ -16,7 +16,7 @@ def test_register(client):
     assert response.status_code == 201
     assert response.get_json() == {'message': 'Registration success'}
 
-@pytest.mark.parametrize(('username', 'password', 'message'),(
+@pytest.mark.parametrize(('username', 'password', 'message'), (
     ('', '', 'Username is required'),
     ('robert', '', 'Password is required'),
     ('test', 'test', 'already registered'),
