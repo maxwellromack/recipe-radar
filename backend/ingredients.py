@@ -6,9 +6,9 @@ import os
 
 prefix = 'recipes/'
 num_recipes = 0
-ingredients = []    # Empty list for storing the ingredients
+ingredients = []    # empty list for storing the ingredients
 
-def clean(string):  # Removes any numbers from the string as well as units of measurement
+def clean(string):  # removes any numbers from the string as well as units of measurement
     string = string.replace('1', '')
     string = string.replace('2', '')
     string = string.replace('3', '')
@@ -70,19 +70,34 @@ for id in range(num_recipes):
     
     file.close()
 
-ingredients_list = Counter(ingredients).most_common(33) # For some reason empty lines are counted as an ingredient, so we take the 33 most common to account for that
+ingredients_list = Counter(ingredients).most_common(33)
 
-file = open('common_ingredients.txt', 'w')    # Creates a file storing the most common ingredients.
+file = open('common_ingredients.txt', 'w')    # creates a file storing the most common ingredients.
 
 for ingredient in ingredients_list:
-    if ingredient[0]:   # Gets rid of that annoying empty string
+    if ingredient[0]:   # gets rid of that annoying empty string
         file.write(ingredient[0] + '\n')
 
 file.close()
 
 for id in range(num_recipes):
     path = prefix + str(id) + '.txt'
+    ingredients_string = str(get_ingredients(path))
     with open(path, 'r') as check:
-        if 'METADATA:' not in check:    # Prevents adding the ingredients metadata to file if it already exists
+        if 'METADATA:' not in check:    # writes metadata if not already written
             with open(path, 'a') as file:
-                file.write('\nMETADATA: ' + str(get_ingredients(path)) + '\n')
+                file.write('\nMETADATA: ' + ingredients_string + '\n')
+        else:
+            check.seek(0)
+            last_num = -1    # stop yelling at me vs code i know what i'm doing
+            for num, line in enumerate(check, 0):
+                if 'METADATA:' in line and ingredients_string not in line:
+                    last_num = num
+
+            if last_num != -1:  # block only runs if the new ingredients are different from exisiting ones
+                check.seek(0)
+                recipe = check.readlines()
+                recipe[last_num] = ('METADATA: ' + ingredients_string + '\n')
+                with open(path, 'w') as new_file:
+                    new_file.writelines(recipe)
+                
