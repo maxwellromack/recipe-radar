@@ -5,7 +5,7 @@ CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    ingredients INTEGER NOT NULL
+    ingredients INTEGER
 );
 
 CREATE TABLE recipe (
