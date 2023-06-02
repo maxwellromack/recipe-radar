@@ -15,15 +15,19 @@ def register():
 
     if not username:
         error = 'Username is required'
+    elif ' ' in username:
+        error = 'Username cannot contain spaces'
     elif not password:
         error = 'Password is required'
+    elif ' ' in password:
+        error = 'Password cannot contain spaces'
 
     if error is None:
         try:    # try to add the new user to the database
             db.execute( 
-                'INSERT INTO user (username, password, ingredients) VALUES (?, ?, 0)',
-                (username, generate_password_hash(password)),
-            )
+                'INSERT INTO user (username, password, ingredients) VALUES (?, ?, 0)',  # due to the way parameter substitution is
+                (username, generate_password_hash(password)),                           # handled in python we don't need to
+            )                                                                           # worry about sql injection! :D
             db.commit()
         except db.IntegrityError:   # username already exists
             error = f"User {username} is already registered."

@@ -34,6 +34,23 @@ def test_register_validate_input(client, username, password, message):
     recieved_message = response.get_json()
     assert message in recieved_message['error']
 
+@pytest.mark.parametrize(('username', 'password', 'message'), (
+        ('user spaces', 'test', 'Username cannot contain spaces'),
+        ('user', 'pass spaces', 'Password cannot contain spaces')
+))
+def test_register_spaces(client, username, password, message):
+    payload = {
+        'username': username,
+        'password': password
+    }
+
+    json_payload = json.dumps(payload)
+    response = client.post('/auth/register', data = json_payload.encode('utf8'), content_type = 'application/json')
+
+    assert response.status_code == 400
+    recieved_message = response.get_json()
+    assert message in recieved_message['error']
+
 def test_register_ingredients(client, auth, app):
     auth.register()
 
