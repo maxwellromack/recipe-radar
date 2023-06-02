@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS recipe;
 CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
-    -- TODO: add column for user saved ingredients
+    password TEXT NOT NULL,
+    ingredients INTEGER
 );
 
 CREATE TABLE recipe (
