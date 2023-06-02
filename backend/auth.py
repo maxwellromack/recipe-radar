@@ -21,7 +21,7 @@ def register():
     if error is None:
         try:    # try to add the new user to the database
             db.execute( 
-                'INSERT INTO user (username, password) VALUES (?, ?)',
+                'INSERT INTO user (username, password, ingredients) VALUES (?, ?, 0)',
                 (username, generate_password_hash(password)),
             )
             db.commit()
