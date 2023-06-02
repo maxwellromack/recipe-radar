@@ -34,6 +34,17 @@ def test_register_validate_input(client, username, password, message):
     recieved_message = response.get_json()
     assert message in recieved_message['error']
 
+def test_register_ingredients(client, auth, app):
+    auth.register()
+
+    with app.app_context():
+        db = get_db()
+        user_ingredients = (db.execute(
+            'SELECT ingredients FROM user WHERE id = 3'
+        )).fetchone()[0]
+
+    assert user_ingredients == 0
+
 def test_login(client, auth):
     auth.register()
 
