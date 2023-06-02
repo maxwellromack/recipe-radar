@@ -42,11 +42,6 @@ flask --app backend add-recipes
 * Laiba Farhan
 * Tanni Barua
 
-## Version History
-
-* 0.1
-  *  Initial release
-
 ## Acknowledgments
 
 * Recipes used in project are from [archive.org](https://archive.org/details/cooking-recipes)
