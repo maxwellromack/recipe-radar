@@ -15,8 +15,12 @@ def register():
 
     if not username:
         error = 'Username is required'
+    elif ' ' in username:
+        error = 'Username cannot contain spaces'
     elif not password:
         error = 'Password is required'
+    elif ' ' in password:
+        error = 'Password cannot contain spaces'
 
     if error is None:
         try:    # try to add the new user to the database
