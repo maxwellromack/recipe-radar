@@ -8,6 +8,7 @@ WIP
 
 ### Dependencies
 
+* Python 3.8.x or newer
 * [Flask](https://pypi.org/project/Flask/)
 * Recipe-Radar-API (Included)
 
