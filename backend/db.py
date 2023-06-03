@@ -2,7 +2,7 @@ import sqlite3
 import click
 import os, time
 from flask import current_app, g
-import backend.ingredients as ing
+import numpy as np
 
 def get_db():
     if 'db' not in g:
@@ -32,20 +32,38 @@ def update_recipes():
     db.execute('DROP TABLE IF EXISTS recipe')
     db.commit()
 
+    db.execute(
+        'CREATE TABLE recipe (id INTEGER PRIMARY KEY AUTOINCREMENT, ingredients BLOB)'
+    )
+    db.commit()
+
+    size = 0
+    with open('backend/ingredients_list.txt') as file:
+        for size, _ in enumerate(file):
+            pass
+
     updated = 0
-    with os.scandir('recipes/') as dir:
+    with os.scandir('backend/recipes/') as dir:
         for entry in dir:
-            data = ing.encode(entry.path)
-            try:
-                db.execute(
-                    'INSERT INTO recipe ingredients VALUES ?',
-                    data,
-                )
-                db.commit()
-            except:
-                print("Something went wrong adding " + str(entry.name))
-            else:
-                updated += 1
+            arr = np.zeros(size, dtype = 'int')
+            index = 0
+            with open('backend/ingredients_list.txt', 'r') as list:
+                while ingredient := list.readline():
+                    with open(entry.path, 'r') as recipe:
+                        if ingredient in recipe.read():
+                            arr[index] = 1
+                        index += 1
+            bin_str = np.array2string(arr)
+            bin_str = bin_str.replace(' ','')
+            bin_str = bin_str.replace(']','')
+            data = bin_str.replace('[','')
+            db.execute(
+                'INSERT INTO recipe (ingredients) VALUES (?)',
+                (data,)
+            )
+            db.commit()
+            print("Added " + str(entry.name) + " to the database.")
+            updated += 1
     
     return updated
     
