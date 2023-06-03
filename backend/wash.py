@@ -86,14 +86,7 @@ def clean(id):
                     clean.write("Ingredients:\n")
                     line = dirty.readline()
                     add_list = open('ingredients_list.txt', 'a')
-                    delete_list = open('delete_list.txt', 'a')
                     while 'Method' not in line: # this is about to get really stupid
-                        with open('delete_list.txt', 'r') as read_list:
-                            for delete_line in read_list:
-                                if delete_line == line:
-                                    clean.write('DELETE')
-                                    bad_recipe = 1
-                                    break
                         if line.isspace():
                             line = dirty.readline()
                         elif line[:3] == 'For':
@@ -102,7 +95,7 @@ def clean(id):
                         elif line[:2] == 'To':
                             clean.write(line + '\n')
                             line = dirty.readline()
-                        else:
+                        elif bad_recipe == 0:
                             with open('ingredients_list.txt', 'r') as read_list:
                                 found = 0
                                 edit_line = line.replace(',', '')
@@ -121,7 +114,6 @@ def clean(id):
                                     choice = input("Enter ingredient or type 'delete' if there is no ingredient or 'skip' to skip: ")
                                     if choice == 'delete':
                                         clean.write('DELETE')
-                                        delete_list.write(line)
                                         bad_recipe = 1
                                         break
                                     elif choice == 'skip':
@@ -131,7 +123,6 @@ def clean(id):
                                         clean.write(line)
                                         line = dirty.readline()
                     add_list.close()
-                    delete_list.close()
                     if bad_recipe == 1:
                         continue
 
@@ -146,11 +137,13 @@ def clean(id):
                         dirty.readline()
                         dirty.readline()
                         instruction = dirty.readline()
-            os.remove(entry.path)
+
             with open(new_prefix + str(id) + '.txt', 'r') as check:
                 if 'DELETE' in check:
                     os.remove(new_prefix + str(id) + '.txt')
+                    os.remove(entry.path)
                     continue
+            os.remove(entry.path)
             id += 1
         print(str(id - start_id) + " files cleaned in " + str(round(time.time() - start_time)) + " seconds!")
 
