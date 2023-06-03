@@ -17,4 +17,4 @@ def encode(path):
     bin_str = bin_str.replace(' ','')
     bin_str = bin_str.replace(']','')
     bin_str = bin_str.replace('[','')
-    return int(bin_str, 2)
+    return bin_str
