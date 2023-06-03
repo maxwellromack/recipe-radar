@@ -17,6 +17,7 @@ def clean(id):
         for entry in dir:
             with open(entry.path, 'r') as dirty:
                 with open('recipes/' + str(id) + '.txt', 'wt') as clean:
+                    bad_recipe = 0
                     print("Cleaning " + str(entry.path))
                     try:
                         dirty.readline()
@@ -35,7 +36,11 @@ def clean(id):
                     loop_start = time.time()
                     while "time" not in dirty.readline():
                         if round(time.time() - loop_start) > 5:
+                            bad_recipe = 1
                             break
+                        continue
+                    if bad_recipe == 1:
+                        clean.write('DELETE')
                         continue
                     
                     # get prep time
@@ -47,7 +52,11 @@ def clean(id):
                     loop_start = time.time()
                     while 'time' not in dirty.readline():
                         if round(time.time() - loop_start) > 5:
+                            bad_recipe = 1
                             break
+                        continue
+                    if bad_recipe == 1:
+                        clean.write('DELETE')
                         continue
 
                     # get cook time
@@ -74,7 +83,6 @@ def clean(id):
                         continue
 
                     author = dirty.readline()
-                    bad_recipe = 0
                     while 'By' not in author:
                         author = dirty.readline()
                         if 'Ingredients' in author or 'Dietary' in author:
