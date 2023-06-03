@@ -7,7 +7,7 @@ new_prefix = 'recipes/'
 def convert(path, id):
     with open(path, 'r') as source:
         soup = bs4.BeautifulSoup(source.read(), features = 'html.parser')
-        new_path = new_prefix + str(id) + '.txt'
+        new_path = new_prefix + str(id) + '_dirty.txt'
         with open(new_path, 'wt', encoding = 'utf-8') as destination:
             destination.write(soup.get_text())
 
@@ -17,14 +17,18 @@ def clean(id):
         for entry in dir:
             with open(entry.path, 'r') as dirty:
                 with open(new_prefix + str(id) + '.txt', 'wt') as clean:
-                    dirty.readline()
+                    print("Cleaning " + str(entry.path))
+                    try:
+                        dirty.readline()
+                    except UnicodeDecodeError:
+                        clean.write('DELETE')
+                        continue
                     dirty.readline()
 
                     # get title
                     title = dirty.readline()
                     if title.isspace():
-                        os.remove(entry.path)
-                        os.remove(new_prefix + str(id) + '.txt')
+                        clean.write('DELETE')
                         continue
                     clean.write("Title: " + title)
 
@@ -52,18 +56,24 @@ def clean(id):
                     # get servings
                     servings = dirty.readline()
                     if 'Serves' not in servings:
-                        os.remove(new_prefix + str(id) + '.txt')
-                        os.remove(entry.path)
+                        clean.write('DELETE')
                         continue
-                    clean.write("Serves: " + servings[7] + '\n')
+                    try:
+                        clean.write("Serves: " + servings[7] + '\n')
+                    except IndexError:
+                        clean.write('DELETE')
+                        continue
 
                     author = dirty.readline()
+                    bad_recipe = 0
                     while 'By' not in author:
                         author = dirty.readline()
-                        if 'Ingredients' in author:
-                            os.remove(new_prefix + str(id) + '.txt')
-                            os.remove(entry.path)
-                            continue
+                        if 'Ingredients' in author or 'Dietary' in author:
+                            clean.write('DELETE')
+                            bad_recipe = 1
+                            break
+                    if bad_recipe == 1:
+                        continue
                     clean.write("Author: " + author[3:] + '\n')
 
                     while 'Ingredients' not in dirty.readline():
@@ -73,40 +83,51 @@ def clean(id):
                     clean.write("Ingredients:\n")
                     line = dirty.readline()
                     add_list = open('ingredients_list.txt', 'a')
-                    choice = ''
                     while 'Method' not in line: # this is about to get really stupid
                         if line.isspace():
                             line = dirty.readline()
                         elif line[:3] == 'For':
-                            clean.write(line + '\n')
+                            clean.write('\n'+ line + '\n')
                             line = dirty.readline()
                         elif line[:2] == 'To':
                             clean.write(line + '\n')
                             line = dirty.readline()
-                        with open('ingredients_list.txt', 'r') as read_list:
-                            found = 0
-                            for ingredient in read_list:
-                                if ingredient in line:
-                                    found = 1
-                                    clean.write(line)
-                            if found == 0:
-                                choice = input("Enter ingredient or type 'delete' if there is no ingredient: ")
-                                if choice == 'delete':
-                                    break
-                                else:
-                                    add_list.write(choice + '\n')
+                        else:
+                            with open('ingredients_list.txt', 'r') as read_list:
+                                found = 0
+                                edit_line = line.replace(',', '')
+                                if 'chicken or vegetable stock' in edit_line:
                                     clean.write(line)
                                     line = dirty.readline()
+                                    continue
+                                for ingredient in read_list:
+                                    if ingredient.strip() in edit_line:
+                                        found = 1
+                                        clean.write(line)
+                                        line = dirty.readline()
+                                        break
+                                if found == 0:
+                                    print(line)
+                                    choice = input("Enter ingredient or type 'delete' if there is no ingredient or 'skip' to skip: ")
+                                    if choice == 'delete':
+                                        clean.write('DELETE')
+                                        bad_recipe = 1
+                                        break
+                                    elif choice == 'skip':
+                                        line = dirty.readline()
+                                    else:
+                                        add_list.write(choice + '\n')
+                                        clean.write(line)
+                                        line = dirty.readline()
                     add_list.close()
-                    if choice == 'delete':
-                        os.remove(new_prefix + str(id) + '.txt')
-                        os.remove(entry.path)
+                    if bad_recipe == 1:
                         continue
 
                     dirty.readline()
                     dirty.readline()
 
                     # get instructions
+                    clean.write("\nInstructions:\n")
                     instruction = dirty.readline()
                     while not instruction.isspace():
                         clean.write(instruction)
@@ -114,7 +135,12 @@ def clean(id):
                         dirty.readline()
                         instruction = dirty.readline()
             os.remove(entry.path)
+            with open(new_prefix + str(id) + '.txt', 'r') as check:
+                if 'DELETE' in check:
+                    os.remove(new_prefix + str(id) + '.txt')
+                    continue
             id += 1
+        print(str(id - start_id) + " files cleaned in " + str(round(time.time() - start_time)) + " seconds!")
 
 start_id = 1
 with os.scandir(new_prefix) as dir:
@@ -133,4 +159,6 @@ with os.scandir(old_prefix) as dir:
             os.remove(new_prefix + str(id) + '_dirty.txt')
         else:
             id += 1
-    print(str(id - (start_id)) + " files converted in " + str(round(time.time() - start_time)) + " seconds!")
+    print(str(id - start_id) + " files converted in " + str(round(time.time() - start_time)) + " seconds!")
+
+clean(start_id)
