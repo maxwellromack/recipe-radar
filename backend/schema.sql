@@ -10,5 +10,5 @@ CREATE TABLE user (
 
 CREATE TABLE recipe (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    ingredients BLOB NOT NULL
-)
+    ingredients BLOB
+);
