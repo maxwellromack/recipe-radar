@@ -2,7 +2,7 @@ import bs4
 import os, sys, time
 
 old_prefix = 'unconverted_recipes/'
-new_prefix = 'recipes/'
+new_prefix = 'recipes/dirty/'
 
 def convert(path, id):
     with open(path, 'r') as source:
@@ -16,7 +16,7 @@ def clean(id):
         start_time = time.time()
         for entry in dir:
             with open(entry.path, 'r') as dirty:
-                with open(new_prefix + str(id) + '.txt', 'wt') as clean:
+                with open('recipes/' + str(id) + '.txt', 'wt') as clean:
                     print("Cleaning " + str(entry.path))
                     try:
                         dirty.readline()
@@ -32,7 +32,10 @@ def clean(id):
                         continue
                     clean.write("Title: " + title)
 
+                    loop_start = time.time()
                     while "time" not in dirty.readline():
+                        if round(time.time() - loop_start) > 5:
+                            break
                         continue
                     
                     # get prep time
@@ -41,7 +44,10 @@ def clean(id):
                         prep_time = prep_time.capitalize()
                     clean.write("Prep time: " + prep_time)
 
+                    loop_start = time.time()
                     while 'time' not in dirty.readline():
+                        if round(time.time() - loop_start) > 5:
+                            break
                         continue
 
                     # get cook time
@@ -79,7 +85,10 @@ def clean(id):
                         continue
                     clean.write("Author: " + author[3:] + '\n')
 
+                    loop_start = time.time()
                     while 'Ingredients' not in dirty.readline():
+                        if round(time.time() - loop_start) > 5:
+                            break
                         continue
                     
                     # get ingredients
@@ -138,9 +147,9 @@ def clean(id):
                         dirty.readline()
                         instruction = dirty.readline()
 
-            with open(new_prefix + str(id) + '.txt', 'r') as check:
+            with open('recipes/' + str(id) + '.txt', 'r') as check:
                 if 'DELETE' in check:
-                    os.remove(new_prefix + str(id) + '.txt')
+                    os.remove('recipes/' + str(id) + '.txt')
                     os.remove(entry.path)
                     continue
             os.remove(entry.path)
@@ -148,7 +157,7 @@ def clean(id):
         print(str(id - start_id) + " files cleaned in " + str(round(time.time() - start_time)) + " seconds!")
 
 start_id = 1
-with os.scandir(new_prefix) as dir:
+with os.scandir('recipes/') as dir:
     for entry in dir:
         if entry.is_file():
             start_id += 1
