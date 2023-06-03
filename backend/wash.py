@@ -4,7 +4,7 @@ import os, sys, time
 old_prefix = 'unconverted_recipes/'
 new_prefix = 'recipes/dirty/'
 
-def convert(path, id):
+def convert(path, id):  # make sure to enter 'full' as a command line argument to run conversion function!
     with open(path, 'r') as source:
         soup = bs4.BeautifulSoup(source.read(), features = 'html.parser')
         new_path = new_prefix + str(id) + '_dirty.txt'
@@ -126,19 +126,10 @@ def clean(id):
                                         clean.write(line)
                                         line = dirty.readline()
                                         break
-                                if found == 0:
-                                    print(line)
-                                    choice = input("Enter ingredient or type 'delete' if there is no ingredient or 'skip' to skip: ")
-                                    if choice == 'delete':
+                                if found == 0:  # recipes can only have ingredients if they are in the ingredients list
                                         clean.write('DELETE')
                                         bad_recipe = 1
                                         break
-                                    elif choice == 'skip':
-                                        line = dirty.readline()
-                                    else:
-                                        add_list.write(choice + '\n')
-                                        clean.write(line)
-                                        line = dirty.readline()
                     add_list.close()
                     if bad_recipe == 1:
                         continue
@@ -169,18 +160,19 @@ with os.scandir('recipes/') as dir:
     for entry in dir:
         if entry.is_file():
             start_id += 1
-
-with os.scandir(old_prefix) as dir:
-    start_time = time.time()
-    id = start_id
-    for entry in dir:
-        try:
-            convert(entry.path, id)
-        except:
-            os.remove(entry.path)   # removes files that raise errors when trying to convert
-            os.remove(new_prefix + str(id) + '_dirty.txt')
-        else:
-            id += 1
-    print(str(id - start_id) + " files converted in " + str(round(time.time() - start_time)) + " seconds!")
+if len(sys.argv) == 2:
+    if sys.argv[1] == 'full':
+        with os.scandir(old_prefix) as dir:
+            start_time = time.time()
+            id = start_id
+            for entry in dir:
+                try:
+                    convert(entry.path, id)
+                except:
+                    os.remove(entry.path)   # removes files that raise errors when trying to convert
+                    os.remove(new_prefix + str(id) + '_dirty.txt')
+                else:
+                    id += 1
+            print(str(id - start_id) + " files converted in " + str(round(time.time() - start_time)) + " seconds!")
 
 clean(start_id)
