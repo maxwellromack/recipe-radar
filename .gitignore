@@ -15,3 +15,4 @@ build/
 *.egg-info/
 
 backend/unconverted_recipes
+backend/recipes/dirty
