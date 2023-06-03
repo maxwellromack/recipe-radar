@@ -50,7 +50,10 @@ def clean(id):
                         cook_time = cook_time.capitalize()
                     clean.write("Cook time: " + cook_time)
 
+                    loop_start = time.time()
                     while 'Serves' not in dirty.readline():
+                        if round(time.time() - loop_start) > 5:
+                            break
                         continue
 
                     # get servings
@@ -83,7 +86,14 @@ def clean(id):
                     clean.write("Ingredients:\n")
                     line = dirty.readline()
                     add_list = open('ingredients_list.txt', 'a')
+                    delete_list = open('delete_list.txt', 'a')
                     while 'Method' not in line: # this is about to get really stupid
+                        with open('delete_list.txt', 'r') as read_list:
+                            for delete_line in read_list:
+                                if delete_line == line:
+                                    clean.write('DELETE')
+                                    bad_recipe = 1
+                                    break
                         if line.isspace():
                             line = dirty.readline()
                         elif line[:3] == 'For':
@@ -111,6 +121,7 @@ def clean(id):
                                     choice = input("Enter ingredient or type 'delete' if there is no ingredient or 'skip' to skip: ")
                                     if choice == 'delete':
                                         clean.write('DELETE')
+                                        delete_list.write(line)
                                         bad_recipe = 1
                                         break
                                     elif choice == 'skip':
@@ -120,6 +131,7 @@ def clean(id):
                                         clean.write(line)
                                         line = dirty.readline()
                     add_list.close()
+                    delete_list.close()
                     if bad_recipe == 1:
                         continue
 
