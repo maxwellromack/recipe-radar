@@ -2,7 +2,7 @@ import sqlite3
 import click
 import os, time
 from flask import current_app, g
-import ingredients
+import backend.ingredients as ing
 
 def get_db():
     if 'db' not in g:
@@ -35,7 +35,7 @@ def update_recipes():
     updated = 0
     with os.scandir('recipes/') as dir:
         for entry in dir:
-            data = ingredients.encode(entry.path)
+            data = ing.encode(entry.path)
             try:
                 db.execute(
                     'INSERT INTO recipe ingredients VALUES ?',
