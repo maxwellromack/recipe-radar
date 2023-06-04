@@ -30,6 +30,7 @@ def add():
     user_id = g.user
     length = get_max_length()
     size = get_num_ingredients()
+    error = None
 
     # TODO: input validation
     
@@ -67,9 +68,11 @@ def add():
     elif neighbors[min] == 1 and input[-1] == 's':  # match found for singluar form of input
         # TODO: add ingredient to db
         return jsonify({'message': 'Ingredient added'}), 201
-    else:
+    elif neighbors[min] < 2:    # possible spelling mistake, suggest similar ingredient to user
         # TODO: similar ingredient suggestion
         pass
+    else:
+        return jsonify({'message': 'No match found'}), 400
 
 if len(sys.argv) == 2:
     if sys.argv[1] == 'debug':
