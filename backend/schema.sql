@@ -5,10 +5,10 @@ CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    ingredients BLOB
+    ingredients TEXT
 );
 
 CREATE TABLE recipe (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    ingredients BLOB
+    ingredients TEXT
 );
