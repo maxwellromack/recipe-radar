@@ -3,7 +3,10 @@ import pytest
 from flask import g
 from backend.db import get_db
 
-def test_add(client):
+def test_add(client, auth):
+    auth.register()
+    auth.login()
+    
     payload = {
         'input': 'salt'
     }
