@@ -3,20 +3,17 @@ from flask import Blueprint, request, jsonify, session, g
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.db import get_db
 
-def init_bin_str(size):
+def init_bin_str():
+    size = 0
+    with open('backend/ingredients_list.txt', 'r') as file:
+        for size, _ in enumerate(file):
+            pass
+
     bin_str = ''
     for i in range(size):
         bin_str += '0'
 
     return bin_str
-
-def get_num_ingredients():
-    size = 0
-    with open('backend/ingredients_list.txt', 'r') as file:
-        for size, _ in enumerate(file):
-            pass
-    
-    return size
 
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
