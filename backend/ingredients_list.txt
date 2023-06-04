@@ -66,7 +66,7 @@ turmeric
 paprika
 chicken breast
 broccoli
-Greek yoghurt
+greek yoghurt
 brown sugar
 groundnut oil
 ginger
@@ -90,12 +90,12 @@ banana
 kalamata olives
 rocket
 herbs
-Wensleydale
+wensleydale
 parsley
 rump steak
 chestnut mushrooms
-Worcestershire sauce
-red Leicester cheese
+worcestershire sauce
+red leicester cheese
 mint leaves
 pistachios
 ras-el-hanout
@@ -136,7 +136,7 @@ rice wine
 dried scallop roe
 pork fillet
 dry sherry
-Chinese five-spice
+chinese five-spice
 sesame seed oil
 cider vinegar
 bok choi
@@ -159,7 +159,7 @@ cashew nut
 pistachio nut
 sultanas
 nutmeg
-Puy lentils
+puy lentils
 pea
 fennel bulb
 bottle ale
@@ -172,14 +172,14 @@ mangetout
 bean sprout
 beef fillet steak
 sesame seed
-French dressing
+french dressing
 basil
 yeast
 beer
-T-bone steak
+t-bone steak
 tarragon vinegar
 tarragon leaves
-Little Gem lettuce
+little gem lettuce
 green bean
 rumen tripe
 prosciutto
@@ -258,7 +258,7 @@ chicory head
 button mushroom
 lamb mince
 coca powder
-Reblochon cheese
+reblochon cheese
 turbot fillet
 field mushroom
 ground mace
@@ -290,7 +290,7 @@ oyster
 celery
 tequila
 chicken fillet
-Tabasco sauce
+tabasco sauce
 chicken thigh
 teriyaki sauce
 flageolet bean
@@ -317,7 +317,7 @@ black bean
 soft taco
 mayonnaise
 soured cream
-Baby Gem Lettuce
+baby gem lettuce
 white fish
 beans
 galangal
@@ -344,14 +344,14 @@ lettuce
 lard
 prawn
 crab shell
-Muscat wine
+muscat wine
 bay leaf
 salsify stick
 turnip
 belly pork
 chicken bouillon
 bouquet garni
-French toast cracker
+french toast cracker
 cornichon
 horseradish cream
 sadrine
@@ -379,7 +379,7 @@ cauliflower
 mirepoix
 brandy
 beef sirloin
-Brussels sprout
+brussels sprout
 chestnut
 pancetta
 shortbread biscuit
@@ -398,7 +398,7 @@ amaretto
 beef cheek
 marshmallow
 blueberries
-Madeira
+madeira
 spaghetti
 sage leaves
 red lentil
@@ -410,7 +410,7 @@ grissini stick
 hard cheese
 whiting
 puff pastry
-Kalamata olive
+kalamata olive
 enoki mushroom
 shimeji mushroom
 shiso cress
@@ -418,14 +418,14 @@ sage
 cola
 barbecue sauce
 beef mince
-Parmesan cheese
+parmesan cheese
 pork loin
 bonito flake
 pumpkin
 cavolo nero
 amaretti biscuit
 avocado
-Swiss chard
+swiss chard
 black pudding
 beef dripping
 brown ale
@@ -497,12 +497,12 @@ punnet cress
 cider
 vodka
 soft-shell crab
-Stilton cheese
+stilton cheese
 lamb loin steak
 octopus
 phesant leg
 trout
-Port Salut cheese
+port salut cheese
 phesant breast
 lobster
 sea aster
@@ -555,12 +555,12 @@ brill fillet
 fennel pollen
 chuck steak
 whelk
-Parma ham
-Gorgonzola cheese
+parma ham
+gorgonzola cheese
 kipper
 fennel
 brown sauce
-Emmental cheese
+emmental cheese
 hollandaise sauce
 cocoa powder
 buffalo stewing steak
@@ -572,6 +572,6 @@ champagne
 rose petal
 grenadine syrup
 rhubarb
-Serrano ham
+serrano ham
 cashew
 calamari
