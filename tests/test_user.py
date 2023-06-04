@@ -29,7 +29,7 @@ def test_add_plural(client, auth):
     response = client.post('/user/add', data = json_payload.encode('utf-8'), content_type = 'application/json')
 
     assert response.status_code == 201
-    assert response.get_json() == {'message': 'Singula ingredient added'}
+    assert response.get_json() == {'message': 'Singular ingredient added'}
 
 def test_add_no_match(client, auth):
     auth.register()
