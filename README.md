@@ -8,6 +8,7 @@ WIP
 
 ### Dependencies
 
+* Python 3.8.x or newer
 * [Flask](https://pypi.org/project/Flask/)
 * Recipe-Radar-API (Included)
 
@@ -30,9 +31,9 @@ To initialize the database, execute the following command in a seperate terminal
 flask --app backend init-db
 ```
 
-For adding recipes to the database, execute the following command inside of the project folder, also in a seperate terminal window:
+For updating recipes in the database, execute the following command inside of the project folder, also in a seperate terminal window:
 ```
-flask --app backend add-recipes
+flask --app backend update-recipes
 ```
 
 ## Authors
