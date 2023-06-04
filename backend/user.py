@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify, g
-from backend.auth import login_required
-from backend.auth import get_db
+from backend.auth import login_required, get_db
 
 bp = Blueprint('user', __name__, url_prefix = '/user')
 
