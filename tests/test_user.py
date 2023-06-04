@@ -110,3 +110,18 @@ def test_add_db(client, auth, app):
     bin_str = '1' + bin_str[1:]
     
     assert user_ingredients == bin_str
+
+def test_add_similar(client, auth):
+    auth.register()
+    auth.login()
+
+    payload = {
+        'input': 'sslt'
+    }
+
+    json_payload = json.dumps(payload)
+    response = client.post('user/add', data = json_payload.encode('utf-8'), content_type = 'application/json')
+
+    assert response.status_code == 400
+    assert 'Similar' in response.get_json()['message']
+    assert 'salt' in response.get_json()['ingredient']

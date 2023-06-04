@@ -96,8 +96,15 @@ def add():
             db.commit()
             return jsonify({'message': 'Singular ingredient added'}), 201
         elif neighbors[min] < 2:    # possible spelling mistake, suggest similar ingredient to user
-            # TODO: similar ingredient suggestion
-            pass
+            ingredient = ''
+            with open('backend/ingredients_list.txt', 'r') as f:
+                for i, ingredient in enumerate(f):
+                    if i == min:
+                        break
+            return jsonify({
+                'message': 'Similar match found',
+                'ingredient': ingredient
+            }), 400
         else:
             return jsonify({'message': 'No match found'}), 400
     else:
