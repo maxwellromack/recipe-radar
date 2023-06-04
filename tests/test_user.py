@@ -83,7 +83,7 @@ def test_add_validation(client, auth, input, message):
     assert message in response.get_json()['error']
 
 def test_add_db(client, auth, app):
-    auth.regster()
+    auth.register()
     auth.login()
 
     payload = {
@@ -107,6 +107,6 @@ def test_add_db(client, auth, app):
     bin_str = ''
     for i in range(size):
         bin_str += '0'
-    bin_str[0] = 1  # type: ignore
+    bin_str = '1' + bin_str[1:]
     
     assert user_ingredients == bin_str
