@@ -59,9 +59,12 @@ def add():
     neighbors = np.empty(size)
     for row in range(size):
         neighbors[row] = np.linalg.norm(input_arr - ing_arr[row])
-
+    
     min = np.argmin(neighbors)
-    if neighbors[min] == 0:   # perfect match found
+    if neighbors[min] == 0: # perfect match found
+        # TODO: add ingredient to db
+        return jsonify({'message': 'Ingredient added'}), 201
+    elif neighbors[min] == 1 and input[-1] == 's':  # match found for singluar form of input
         # TODO: add ingredient to db
         return jsonify({'message': 'Ingredient added'}), 201
     else:
