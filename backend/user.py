@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, g
+from flask import Blueprint, request, jsonify, session
 from backend.auth import login_required, get_db
 import numpy as np
 import sys
@@ -27,10 +27,11 @@ bp = Blueprint('user', __name__, url_prefix = '/user')
 def add():
     data = request.get_json()
     input = data.get('input')
-    user_id = g.user
+    user_id = session.get('user_id')
     length = get_max_length()
     size = get_num_ingredients()
     error = None
+    db = get_db()
 
     input = input.replace('\'', '')
     input = input.replace('-', ' ')
@@ -71,10 +72,28 @@ def add():
         
         min = np.argmin(neighbors)
         if neighbors[min] == 0: # perfect match found
-            # TODO: add ingredient to db
+            user_ing = (db.execute(
+                'SELECT ingredients FROM user WHERE id = ?',
+                (user_id,),
+            )).fetchone()[0]
+            updated = user_ing[:min] + '1' + user_ing[min + 1:]
+            db.execute(
+                'UPDATE user SET ingredients = ? WHERE id = ?',
+                (updated, user_id,),
+            )
+            db.commit()
             return jsonify({'message': 'Ingredient added'}), 201
         elif neighbors[min] == 1 and input[-1] == 's':  # match found for singluar form of input
-            # TODO: add ingredient to db
+            user_ing = (db.execute(
+                'SELECT ingredients FROM user WHERE id = ?',
+                (user_id,),
+            )).fetchone()[0]
+            updated = user_ing[:min] + '1' + user_ing[min + 1:]
+            db.execute(
+                'UPDATE user SET ingredients = ? WHERE id = ?',
+                (updated, user_id,),
+            )
+            db.commit()
             return jsonify({'message': 'Singular ingredient added'}), 201
         elif neighbors[min] < 2:    # possible spelling mistake, suggest similar ingredient to user
             # TODO: similar ingredient suggestion
