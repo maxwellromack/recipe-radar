@@ -71,7 +71,7 @@ brown sugar
 groundnut oil
 ginger
 thyme
-goats' cheese
+goats cheese
 rosemary
 spinach
 pine nut
@@ -98,7 +98,7 @@ worcestershire sauce
 red leicester cheese
 mint leaves
 pistachios
-ras-el-hanout
+ras el hanout
 saffron
 dried apricots
 green olives
@@ -176,7 +176,7 @@ french dressing
 basil
 yeast
 beer
-t-bone steak
+t bone steak
 tarragon vinegar
 tarragon leaves
 little gem lettuce
@@ -330,7 +330,7 @@ aubergine
 scotch bonnet chilli
 pork cheek
 mixed spice
-bird's-eye chilli
+birds eye chilli
 beef fillet
 whiting fillet
 pork ribs
@@ -536,7 +536,7 @@ sea beet
 sea purslane
 clementine peels
 green elderberries
-agar-agar
+agar agar
 chickweed
 crayfish shells
 buckwheat
