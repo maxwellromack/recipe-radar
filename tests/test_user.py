@@ -45,7 +45,7 @@ def test_add_no_match(client, auth):
     assert response.status_code == 400
     assert response.get_json() == {'message': 'No match found'}
 
-@pytest.mark.parameterize(('input'), (
+@pytest.mark.parametrize(('input'), (
     ('goat\'s cheese'),
     ('t-bone steak')
 ))
