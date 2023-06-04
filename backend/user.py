@@ -32,8 +32,9 @@ def add():
     size = get_num_ingredients()
     error = None
 
-    # TODO: input validation
-    
+    input = input.replace('\'', '')
+    input = input.replace('-', ' ')
+
     # one-hot encode the input
     input_arr = np.zeros(length * 27, dtype = 'int').T
     for i in range(len(input)):
