@@ -60,16 +60,18 @@ def add():
     neighbors = np.empty(size)
     for row in range(size):
         neighbors[row] = np.linalg.norm(input_arr - ing_arr[row])
+
+    print("Ingredient add knn completed in " + str(time.time() - start_time) + " seconds.")
     
     min = np.argmin(neighbors)
     if neighbors[min] == 0:   # perfect match found
         # TODO: add ingredient to db
-        pass
+        return jsonify({'message': 'Ingredient added'}), 201
     else:
         # TODO: similar ingredient suggestion
         pass
     
-    print("Ingredient add function completed in " + str(time.time() - start_time) + " seconds.")
+    
 
 if len(sys.argv) == 2:
     if sys.argv[1] == 'debug':
