@@ -67,7 +67,7 @@ def add():
         return jsonify({'message': 'Ingredient added'}), 201
     elif neighbors[min] == 1 and input[-1] == 's':  # match found for singluar form of input
         # TODO: add ingredient to db
-        return jsonify({'message': 'Ingredient added'}), 201
+        return jsonify({'message': 'Singular ingredient added'}), 201
     elif neighbors[min] < 2:    # possible spelling mistake, suggest similar ingredient to user
         # TODO: similar ingredient suggestion
         pass

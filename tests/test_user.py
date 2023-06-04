@@ -29,7 +29,7 @@ def test_add_plural(client, auth):
     response = client.post('/user/add', data = json_payload.encode('utf-8'), content_type = 'application/json')
 
     assert response.status_code == 201
-    assert response.get_json() == {'message': 'Ingredient added'}
+    assert response.get_json() == {'message': 'Singula ingredient added'}
 
 def test_add_no_match(client, auth):
     auth.register()
@@ -44,3 +44,9 @@ def test_add_no_match(client, auth):
 
     assert response.status_code == 400
     assert response.get_json() == {'message': 'No match found'}
+
+@pytest.mark.parameterize(('input', 'message'), (
+    ('', 'Input is required'),
+    ('goat\'s cheese', 'Ingredient added')
+))
+def test_add_validation
