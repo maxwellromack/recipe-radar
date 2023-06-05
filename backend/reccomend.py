@@ -1,15 +1,31 @@
 from flask import Blueprint, jsonify, session
 from backend.auth import login_required, get_db
-from backend.user import get_max_length # type: ignore
+from backend.user import get_max_length, get_num_ingredients    # type: ignore
 import numpy as np
 import sys
 
 def build_user_arr(string, length):
     arr = np.zeros(length, dtype = 'int')
     ind = 0
+
     for c in string:
         arr[ind] = c
         ind += 1
+
+    return arr
+
+def build_recipe_arr(db, length):
+    arr = np.zeros((get_num_ingredients, length), dtype = 'int')
+    arr_r = 0
+    cursor = db.execute('SELECT ingredients FROM recipe')
+
+    for row in cursor:
+        string = row.fetchone()
+        arr_c = 0
+        for c in string:
+            arr[arr_r, arr_c]
+            arr_c += 1
+    
     return arr
 
 bp = Blueprint('reccomend', __name__, url_prefix = '/rec')
@@ -34,4 +50,5 @@ def update():
         error = 'Ingredients length mismatch'
 
     if error is None:
-        user_arr = np.fromstring(user_ing, dtype = 'int', sep = '')
+        user_arr = build_user_arr(user_ing, length)
+
