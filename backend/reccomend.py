@@ -57,4 +57,13 @@ def update():
         user_arr = build_user_arr(user_ing)
         recipe_arr = build_recipe_arr(db, length)
 
+        neighbors = np.empty(length)
+        for row in range(length):
+            neighbors[row] = np.linalg.norm(user_arr - recipe_arr[row])
         
+        sorted = np.argsort(neighbors)
+        srt_str = np.array2string(sorted)
+
+        return jsonify({'message': 'Matched user ingredients with recipes', 'recipes': srt_str}), 200
+    else:
+        return jsonify({'error': error}), 400
