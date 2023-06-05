@@ -49,19 +49,34 @@ Returns status code 200 for a successful logout.
 
 The '/user' prefix is used for updating entries in the user table that is not related to authentication
 
-### /update
+### /add
 
-URL: '/user/update'    
+URL: '/user/add'    
 Request Type: POST
 
-The update endpoint takes a JSON payload containing an interger value that, when converted to a binary string, represents the ingredients that the user has in their kitchen.
+The add endpoint takes a JSON payload containing an user-inputted text string that will be added to the user's ingredients, given that the input is valid.
 
 Example Payload:
 ```
 payload = {
-    'ingredients': 6
+    'input': 'butter'
 }
 ```
 
-Returns status code 400 if no ingredients are passed in the payload.    
-Returns status code 201 for a successful update.
+Returns status code 400 if no input is passed in the payload, any non-alphabetic characters are included, or a match was not found. 
+Returns status code 201 for a successful addition.
+
+### /rec
+
+The '/rec' prefix is used for anything relating to the recipe reccomendation system.
+
+### /update
+
+URL: '/rec/update'    
+Request Type: GET
+
+
+The update endpoint updates the reccomended recipes and should be run every time that the user accesses the page of recipes. The JSON payload that is returned will have a field 'recipes' that contains a string of recipe ids, seperated by spaces in decending order by how much of a match the recipe is to the user's ingredients.
+
+Returns status code 400 if user ingredients are not set.
+Returns status code 200 if reccomendation system ran successfuly.
