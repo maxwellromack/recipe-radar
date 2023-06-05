@@ -4,9 +4,8 @@ from backend.user import get_num_ingredients
 import numpy as np
 import sys, os
 
-def get_num_recipes():
-    list = os.listdir('backend/recipes/')   # make sure no uncleaned recipes are in any subfolders
-    return len(list)
+def get_num_recipes(db):
+    return db.execute('SELECT COUNT(*) FROM recipe').fetchone()[0]
 
 def build_user_arr(string):
     arr = np.zeros(get_num_ingredients(), dtype = 'int')
@@ -24,7 +23,7 @@ def build_recipe_arr(db, length):
     cursor = db.execute('SELECT ingredients FROM recipe')
 
     for row in cursor:
-        string = row.fetchone()[0]
+        string = row
         arr_c = 0
         for c in string:
             arr[arr_r, arr_c]
@@ -34,13 +33,13 @@ def build_recipe_arr(db, length):
 
 bp = Blueprint('reccomend', __name__, url_prefix = '/rec')
 
-@bp.route('/update', methods = ['GET']) # type: ignore
+@bp.route('/update', methods = ['GET'])
 @login_required
 def update():
     user_id = session.get('user_id')
     db = get_db()
     error = None
-    length = get_num_recipes()
+    length = get_num_recipes(db)
     user_ing = ''
 
     try:
@@ -50,8 +49,6 @@ def update():
             )).fetchone()[0]
     except:
         error = 'User ingredients not set'
-    if len(user_ing) != length:
-        error = 'Ingredients length mismatch'
 
     if error is None:
         user_arr = build_user_arr(user_ing)
