@@ -15,12 +15,12 @@ def build_user_arr(string, length):
     return arr
 
 def build_recipe_arr(db, length):
-    arr = np.zeros((get_num_ingredients, length), dtype = 'int')
+    arr = np.zeros((get_num_ingredients(), length), dtype = 'int')
     arr_r = 0
     cursor = db.execute('SELECT ingredients FROM recipe')
 
     for row in cursor:
-        string = row.fetchone()
+        string = row.fetchone()[0]
         arr_c = 0
         for c in string:
             arr[arr_r, arr_c]
@@ -34,7 +34,7 @@ bp = Blueprint('reccomend', __name__, url_prefix = '/rec')
 @login_required
 def update():
     user_id = session.get('user_id')
-    db = get_db
+    db = get_db()
     error = None
     length = get_max_length() * 27
     user_ing = ''
@@ -51,4 +51,6 @@ def update():
 
     if error is None:
         user_arr = build_user_arr(user_ing, length)
+        recipe_arr = build_recipe_arr(db, length)
 
+        
