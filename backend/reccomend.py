@@ -60,7 +60,9 @@ def update():
         
         sorted = np.argsort(neighbors)
         srt_str = np.array2string(sorted)
-
+        srt_str = srt_str.replace('[', '')
+        srt_str = srt_str.replace(']', '')
+        
         return jsonify({'message': 'Matched user ingredients with recipes', 'recipes': srt_str}), 200
     else:
         return jsonify({'error': error}), 400
