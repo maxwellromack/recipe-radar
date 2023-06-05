@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session
 from backend.auth import login_required, get_db
-from user import get_max_length
+from backend.user import get_max_length # type: ignore
 import numpy as np
 import sys
 
