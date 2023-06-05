@@ -1,6 +1,5 @@
 import json
 import pytest
-from flask import g
 from backend.db import get_db
 
 def test_add(client, auth):

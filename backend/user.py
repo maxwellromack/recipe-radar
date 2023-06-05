@@ -22,7 +22,7 @@ def get_num_ingredients():
 
 bp = Blueprint('user', __name__, url_prefix = '/user')
 
-@bp.route('/add', methods = ['POST'])   # type: ignore
+@bp.route('/add', methods = ['POST'])
 @login_required
 def add():
     data = request.get_json()
