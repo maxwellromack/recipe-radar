@@ -3,6 +3,18 @@ from flask import Blueprint, request, jsonify, session, g
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.db import get_db
 
+def init_bin_str():
+    size = 0
+    with open('backend/ingredients_list.txt', 'r') as file:
+        for size, _ in enumerate(file):
+            pass
+
+    bin_str = ''
+    for i in range(size):
+        bin_str += '0'
+
+    return bin_str
+
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
 @bp.route('/register', methods = ['POST'])
@@ -25,8 +37,8 @@ def register():
     if error is None:
         try:    # try to add the new user to the database
             db.execute( 
-                'INSERT INTO user (username, password, ingredients) VALUES (?, ?, 0)',  # due to the way parameter substitution is
-                (username, generate_password_hash(password)),                           # handled in python we don't need to
+                'INSERT INTO user (username, password, ingredients) VALUES (?, ?, ?)',  # due to the way parameter substitution is
+                (username, generate_password_hash(password), init_bin_str()),           # handled in python we don't need to
             )                                                                           # worry about sql injection! :D
             db.commit()
         except db.IntegrityError:   # username already exists

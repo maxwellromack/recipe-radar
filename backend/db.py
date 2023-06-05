@@ -1,7 +1,8 @@
 import sqlite3
 import click
-import os
+import os, time
 from flask import current_app, g
+import numpy as np
 
 def get_db():
     if 'db' not in g:
@@ -25,52 +26,52 @@ def init_db():
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
 
-def add_recipes():  # Adds new recipes to the database
+def update_recipes():
     db = get_db()
-    num_recipes = 0
-    recipes_added = 0
-    path = 'backend/recipes/'
-    dir = os.listdir(path)
 
-    for f in dir:
-        if os.path.isfile(os.path.join(path,f)):
-            num_recipes +=1
+    db.execute('DROP TABLE IF EXISTS recipe')
+    db.commit()
 
-    max_id = (db.execute(
-        'SELECT MAX(id) FROM recipe'
-    )).fetchone()[0]
-    if not max_id:  # No values in table
-        for id in range(num_recipes):
-            with open(path + str(id) + '.txt', 'r') as file:
-                line = file.readline()
-                while 'METADATA:' not in line:
-                    line = file.readline()
+    db.execute(
+        'CREATE TABLE recipe (id INTEGER PRIMARY KEY AUTOINCREMENT, ingredients BLOB)'
+    )
+    db.commit()
 
-                ingredients = line[10:]
-                db.execute(
-                    'INSERT INTO recipe (ingredients) VALUES (?)',
-                    (ingredients,)
-                )
-                db.commit()
-                recipes_added += 1
-    else:
-        for id in range(int(max_id) + 1, num_recipes):
-            with open(path + str(id) + '.txt', 'r') as file:
-                line = file.readline()
-                while 'METADATA:' not in line:
-                    line = file.readline()
+    size = 0
+    with open('backend/ingredients_list.txt') as file:
+        for size, _ in enumerate(file):
+            pass
 
-                ingredients = line[10:]
-                db.execute(
-                    'INSERT INTO recipe (ingredients) VALUES (?)',
-                    (ingredients,)
-                )
-                db.commit()
-                recipes_added += 1
-
-    return recipes_added
-
-# TODO: Update recipes command to update the ingredients value if it does not match the value on the file.
+    updated = 0
+    with os.scandir('backend/recipes/') as dir:
+        for entry in dir:
+            arr = np.zeros(size, dtype = 'int')
+            index = 0
+            with open('backend/ingredients_list.txt', 'r') as list:
+                while ingredient := list.readline():
+                    with open(entry.path, 'r') as recipe:
+                        if ingredient in recipe.read():
+                            arr[index] = 1
+                        index += 1
+            bin_str = np.array2string(arr)
+            bin_str = bin_str.replace(' ','')
+            bin_str = bin_str.replace(']','')
+            data = bin_str.replace('[','')
+            db.execute(
+                'INSERT INTO recipe (ingredients) VALUES (?)',
+                (data,)
+            )
+            db.commit()
+            print("Added " + str(entry.name) + " to the database.")
+            updated += 1
+    
+    return updated
+    
+@click.command('update-recipes')
+def update_recipes_command():
+    """""Updates all the recipes in the database. WARNING: HIGH COMPUTATION COST!"""
+    updated = update_recipes()
+    click.echo("Updated " + str(updated) + " recipes.")
 
 @click.command('init-db')
 def init_db_command():
@@ -78,13 +79,7 @@ def init_db_command():
     init_db()
     click.echo("Initialized the database.")
 
-@click.command('add-recipes')
-def add_recipes_command():
-    """Add new recipes to the database."""
-    recipes_added = add_recipes()
-    click.echo(str(recipes_added) + " recipe(s) added to the database.")
-
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
-    app.cli.add_command(add_recipes_command)
+    app.cli.add_command(update_recipes_command)

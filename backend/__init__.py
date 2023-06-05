@@ -30,5 +30,8 @@ def create_app(test_config = None):
 
     from . import user
     app.register_blueprint(user.bp)
+
+    from . import reccomend
+    app.register_blueprint(reccomend.bp)
     
     return app

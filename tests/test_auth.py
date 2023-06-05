@@ -4,6 +4,7 @@ from flask import g, session
 from backend.db import get_db
 from werkzeug.security import check_password_hash, generate_password_hash
 
+
 def test_register(client):
     payload = {
         'username': 'freeman',
@@ -60,7 +61,16 @@ def test_register_ingredients(client, auth, app):
             'SELECT ingredients FROM user WHERE id = 3'
         )).fetchone()[0]
 
-    assert user_ingredients == 0
+    size = 0
+    with open('backend/ingredients_list.txt', 'r') as file:
+        for size, _ in enumerate(file):
+            pass
+
+    bin_str = ''
+    for i in range(size):
+        bin_str += '0'
+
+    assert user_ingredients == bin_str
 
 def test_login(client, auth):
     auth.register()
@@ -94,3 +104,5 @@ def test_logout(client, auth):
     with client:
         client.get('/auth/logout')
         assert 'user_id' not in session
+
+
