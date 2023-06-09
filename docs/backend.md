@@ -63,12 +63,12 @@ payload = {
 }
 ```
 
-Returns status code 400 if no input is passed in the payload, any non-alphabetic characters are included, or a match was not found. 
+Returns status code 400 if no input is passed in the payload, any non-alphabetic characters are included, or a match is not found. 
 Returns status code 201 for a successful addition.
 
 ### /rec
 
-The '/rec' prefix is used for anything relating to the recipe reccomendation system.
+The '/rec' prefix is used for anything relating to the recipe recommendation system.
 
 ### /update
 
@@ -76,7 +76,7 @@ URL: '/rec/update'
 Request Type: GET
 
 
-The update endpoint updates the reccomended recipes and should be run every time that the user accesses the page of recipes. The JSON payload that is returned will have a field 'recipes' that contains a string of recipe ids, seperated by spaces in decending order by how much of a match the recipe is to the user's ingredients.
+The update endpoint updates the recommended recipes and should be run every time that the user accesses the page of recipes. The JSON payload that is returned will have a field 'recipes' that contains a string of recipe ids, separated by spaces in descending order by how much of a match the recipe is to the user's ingredients.
 
 Returns status code 400 if user ingredients are not set.
-Returns status code 200 if reccomendation system ran successfuly.
+Returns status code 200 if the recommendation system ran successfully.
