@@ -2,13 +2,30 @@ import React , { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 
 function Register() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [user, setUsername] = useState('');
+    const [pass, setPassword] = useState('');
+
     const userChange = event => {
         setUsername(event.target.value);
     }
+
     const passChange = event => {
         setPassword(event.target.value);
+    }
+
+    async function handleClick() {
+        const payload = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: user,
+                password: pass
+            })
+        };
+
+        const response = await fetch('http://127.0.0.1:5000/auth/register', payload);
+        const jsonData = await response.json();
+        console.log(jsonData);
     }
 
     return (
@@ -44,7 +61,7 @@ function Register() {
                         autoComplete="username"
                         placeholder="Enter username"
                         onChange={userChange}
-                        value={username}
+                        value={user}
                         />
                     </label>
                     <label className="block mb-5">
@@ -57,10 +74,10 @@ function Register() {
                         autoComplete="current-password"
                         placeholder="Password"
                         onChange={passChange}
-                        value={password}
+                        value={pass}
                         />
                     </label>
-                    <button className="mb-9 py-4 px-9 w-full text-white font-semibold border border-[#00df9a] rounded-xl shadow-4xl focus:ring focus:ring-indigo-300 bg-[#00df9a] hover:bg-[#008c6b] transition ease-in-out duration-200" type="submit">
+                    <button className="mb-9 py-4 px-9 w-full text-white font-semibold border border-[#00df9a] rounded-xl shadow-4xl focus:ring focus:ring-indigo-300 bg-[#00df9a] hover:bg-[#008c6b] transition ease-in-out duration-200" type="submit" onClick={handleClick}>
                         Register
                     </button>
                     </form>
