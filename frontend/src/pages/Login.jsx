@@ -1,7 +1,7 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
 
-const Login = () => {
+function Login() {
   return (
     <div className="w-screen h-screen flex bg-[#00df9a]">
       <div className="bg-white overflow-hidden">
