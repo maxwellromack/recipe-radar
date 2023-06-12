@@ -14,6 +14,7 @@ WIP
 * [React](https://react.dev/)
 * [Node.js](https://nodejs.org/en)
 * [typed.js](https://github.com/mattboldt/typed.js/)
+* [React Router](https://reactrouter.com/en/main)
 
 ### Installing
 
