@@ -1,12 +1,12 @@
 import './App.css';
-import Hero from './components/Hero';
+import Landing from './components/Landing';
 import Login from './components/Login'
 
 
 function App() {
   return (
 
-    <><Hero> </Hero><Login> </Login></>
+    <><Landing> </Landing><Login> </Login></>
     
   );
 }
