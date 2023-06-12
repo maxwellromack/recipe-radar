@@ -14,18 +14,22 @@ function Register() {
     }
 
     async function handleClick() {
-        const payload = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                username: user,
-                password: pass
-            })
-        };
+        try {
+            const payload = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: user,
+                    password: pass
+                })
+            };
 
-        const response = await fetch('http://127.0.0.1:5000/auth/register', payload);
-        const jsonData = await response.json();
-        console.log(jsonData);
+            const response = await fetch('auth/register', payload);
+            const jsonData = await response.json();
+            console.log(jsonData);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     return (
