@@ -5,8 +5,10 @@ import Login from './pages/Login'
 
 function App() {
   return (
-
-    <><Landing> </Landing><Login> </Login></>
+    <>
+      <Landing>
+      </Landing>
+    </>
     
   );
 }
