@@ -2,6 +2,7 @@ import functools
 from flask import Blueprint, request, jsonify, session, g
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.db import get_db
+from flask_cors import cross_origin
 
 def init_bin_str():
     size = 0
@@ -18,6 +19,7 @@ def init_bin_str():
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
 @bp.route('/register', methods = ['POST'])
+@cross_origin(origin = '*')
 def register():
     data = request.get_json()
     username = data.get('username')
@@ -49,6 +51,7 @@ def register():
     return jsonify({'error': error}), 400
 
 @bp.route('/login', methods = ['POST'])
+@cross_origin(origin = '*')
 def login():
     data = request.get_json()
     username = data.get('username')
@@ -85,6 +88,7 @@ def load_current_user():
         ).fetchone()
 
 @bp.route('/logout')
+@cross_origin(origin = '*')
 def logout():
     session.clear()
     return jsonify({'message': 'Logout success'}), 200
