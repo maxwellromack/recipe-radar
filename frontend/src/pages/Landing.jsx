@@ -2,7 +2,6 @@ import React from 'react';
 import 'tailwindcss/tailwind.css';
 import Typed from 'typed.js';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import Login from './Login.jsx';
 
 function Landing() {
   const el = React.useRef(null);
@@ -42,7 +41,7 @@ function Landing() {
         </p>
         <div className='flex justify-center'>
           <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-2 py-3 text-black'>
-            Get Started
+            <Link to = "register">Register</Link>
           </button>
           <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-2 py-3 text-black'>
             <Link to = "login">Login</Link>

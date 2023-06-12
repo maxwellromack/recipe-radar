@@ -1,7 +1,7 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
 
-function Login() {
+function Register() {
   return (
     <div className="w-screen h-screen flex bg-[#00df9a]">
       <div className="bg-white overflow-hidden">
@@ -15,8 +15,8 @@ function Login() {
               </div>
               <div className="w-1/2 place-self-stretch mt-[5rem]">
                 <div className="mx-auto">
-                  <p className="mt-2 w-screen text-start text-6xl font-semibold tracking-loose text-black">Create custom recipes at home:<br /><span className="text-6xl font-bold">Easy, Fast, Delicious</span></p>
-                  <p className="my-10 text-start mx-auto text-3xl tracking-loose text-gray-800">Quickly create and share custom recipes.</p>
+                  <p className="mt-2 w-screen text-start text-6xl font-semibold tracking-loose text-black">This is the register page:<br /><span className="text-6xl font-bold">It is not the login page</span></p>
+                  <p className="my-10 text-start mx-auto text-3xl tracking-loose text-gray-800">Stop asking if this is the login page.</p>
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@ function Login() {
                     />
                   </label>
                   <button className="mb-9 py-4 px-9 w-full text-white font-semibold border border-[#00df9a] rounded-xl shadow-4xl focus:ring focus:ring-indigo-300 bg-[#00df9a] hover:bg-[#008c6b] transition ease-in-out duration-200" type="submit">
-                    Sign In
+                    Register
                   </button>
                 </form>
               </div>
@@ -60,4 +60,4 @@ function Login() {
   );
 };
 
-export default Login;
+export default Register;
