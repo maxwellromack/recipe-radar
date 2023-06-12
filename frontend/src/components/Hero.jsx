@@ -7,7 +7,7 @@ const Hero = () => {
 
   React.useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: ['CHEFS!', 'COOKS', 'YOU'],
+      strings: ['CHEFS', 'COOKS', 'YOU'],
       typeSpeed: 100,
       loop: true,
     });
@@ -32,7 +32,7 @@ const Hero = () => {
         <span
           className='md:text-5xl sm:text-4xl text-xl font-bold md:pl-4 pl-2'
           ref={el}
-          style={{ height: '4.5rem' }} // Set a fixed height for the container
+          style={{ height: '2.9rem' }} // Set a fixed height for the container
         />
       </div>
       <p className='md:text-2xl text-xl font-bold text-gray-500'>
