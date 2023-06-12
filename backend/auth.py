@@ -51,6 +51,7 @@ def register():
     return jsonify({'error': error}), 400
 
 @bp.route('/login', methods = ['POST'])
+@cross_origin(origin = '*')
 def login():
     data = request.get_json()
     username = data.get('username')
@@ -87,6 +88,7 @@ def load_current_user():
         ).fetchone()
 
 @bp.route('/logout')
+@cross_origin(origin = '*')
 def logout():
     session.clear()
     return jsonify({'message': 'Logout success'}), 200

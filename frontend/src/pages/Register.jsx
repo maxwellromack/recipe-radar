@@ -14,7 +14,6 @@ function Register() {
     }
 
     async function handleClick() {
-        try {
             const payload = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -24,12 +23,17 @@ function Register() {
                 })
             };
 
-            const response = await fetch('http://127.0.0.1:5000/auth/register', payload);
-            const jsonData = await response.json();
-            console.log(jsonData);
-        } catch (error) {
-            console.error('Error:', error);
-        }
+            fetch('http://127.0.0.1:5000/auth/register', payload)
+                .then((response) => {
+                    if(!response.ok) throw new Error(response.status);
+                    else return response.json();
+                })
+                .then((data) => {
+                    console.log('message: ' + data.message);
+                })
+                .catch((error) => {
+                    console.log('error: ' + error);
+                });
     }
 
     return (
