@@ -13,7 +13,7 @@ function Register() {
         setPassword(event.target.value);
     }
 
-    async function handleClick() {
+    async function handleRegister() {
             const payload = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -69,7 +69,7 @@ function Register() {
                         Forgot Password?
                     </a>
                     <div className="mt-6">
-                        <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                        <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600" onClick={handleRegister}>
                             Login
                         </button>
                     </div>
