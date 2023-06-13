@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css';
 import Typed from 'typed.js';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRightIcon } from '@heroicons/react/solid';
+import customLogo from '../images/logo.svg';
 
 const Landing = () => {
   const el = React.useRef(null);
@@ -25,10 +26,13 @@ const Landing = () => {
       <a
         href="/login" // Updated link to navigate to "/login"
         className="absolute top-4 right-8 flex items-center text-sm font-semibold leading-6 text-gray-900"
-        style={{ marginLeft: '-1rem' }}
-      >
+        style={{ marginLeft: '-1rem' }}>
         Log in <ArrowRightIcon className="h-5 w-5 ml-1" />
       </a>
+      <div className="absolute top-4 left-4">
+        <img src={customLogo} alt="Logo" className="h-10 w-10" />
+      </div>
+     
       <p className="text-purple-600 font-bold p-2">CREATE RECIPES WITH RECIPE RADAR</p>
       <h1 className="md:text-7xl sm:text-6xl text-4xl font-bold md:py-6">
         Recipes from data.
