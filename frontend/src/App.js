@@ -1,22 +1,20 @@
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom'
 import './App.css';
-import Landing from './pages/Landing';
-import Login from './pages/Login'
-import Register from './pages/Register'
-
+import Hero from './components/Hero';
+import Login from './components/Login';
+import Register from './components/Register';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  return(
-    <div className='App' >
-      <BrowserRouter>
-        <Routes>
-          <Route path = "/" element = {<Landing />}/>
-          <Route path = "login" element = {<Login />}/>
-          <Route path = "register" element = {<Register />}/>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  )
+  return (
+    <Router>
+      <Routes>
+        {/* Define your routes here */}
+        <Route path="/" element={<Hero />} /> {/* Render Hero component as main page */}
+        <Route path="/login" element={<Login />} /> {/* Render Login component when URL is /login */}
+        <Route path="/register" element={<Register />} /> {/* Render Register component when URL is /register */}
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

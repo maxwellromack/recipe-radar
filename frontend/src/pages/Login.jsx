@@ -1,62 +1,59 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
 
-function Login() {
+const Login = () => {
   return (
-    <div className="w-screen h-screen flex bg-[#00df9a]">
-      <div className="bg-white overflow-hidden">
-        <div className="flex grid grid-cols-[60%_40%]">
-          <div className="p-8 mx-auto w-[70vw] h-screen">
-            <div className="grid flex flex-grid place-items-top w-fit">
-              <div className="w-fit h-fit flex lg:flex-1">
-                <a href="/#" className="-m-1.5 p-1.5">
-                  <span className="sr-only">RecipeRadar</span>
-                </a>
-              </div>
-              <div className="w-1/2 place-self-stretch mt-[5rem]">
-                <div className="mx-auto">
-                  <p className="mt-2 w-screen text-start text-6xl font-semibold tracking-loose text-black">Create custom recipes at home:<br /><span className="text-6xl font-bold">Easy, Fast, Delicious</span></p>
-                  <p className="my-10 text-start mx-auto text-3xl tracking-loose text-gray-800">Quickly create and share custom recipes.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="mx-auto w-full grid place-items-center">
-            <div className="rounded-xl shadow-lg p-8 bg-[#00df9a]">
-              <div className="p-4 flex flex-col justify-center bg-white h-full">
-                <form className="md:max-w-lg mx-auto">
-                  <label className="block mb-4">
-                    <p className="mb-2 text-gray-900 font-semibold leading-normal">Username</p>
-                    <input
-                      className="px-4 py-3.5 w-full text-gray-400 font-medium placeholder-gray-400 bg-white outline-none border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300"
-                      id="username"
-                      name="username"
-                      type="username"
-                      autoComplete="username"
-                      placeholder="Enter username"
-                    />
-                  </label>
-                  <label className="block mb-5">
-                    <p className="mb-2 text-gray-900 font-semibold leading-normal">Password</p>
-                    <input
-                      className="px-4 py-3.5 w-full text-gray-400 font-medium placeholder-gray-400 bg-white outline-none border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300"
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      placeholder="Password"
-                    />
-                  </label>
-                  <button className="mb-9 py-4 px-9 w-full text-white font-semibold border border-[#00df9a] rounded-xl shadow-4xl focus:ring focus:ring-indigo-300 bg-[#00df9a] hover:bg-[#008c6b] transition ease-in-out duration-200" type="submit">
-                    Sign In
-                  </button>
+    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+            <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-purple-600 ring ring-2 ring-purple-600 lg:max-w-xl">
+                <h1 className="text-3xl font-semibold text-center text-purple-700">
+                   Sign in
+                </h1>
+                <form className="mt-6">
+                    <div className="mb-2">
+                        <label
+                            for="email"
+                            className="block text-sm font-semibold text-gray-800">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <label
+                            for="password"
+                            className="block text-sm font-semibold text-gray-800"
+                        >
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                    </div>
+                    <a
+                        href="#"
+                        className="text-xs text-purple-600 hover:underline"
+                    >
+                        Forgot Password?
+                    </a>
+                    <div className="mt-6">
+                        <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                            Login
+                        </button>
+                    </div>
                 </form>
-              </div>
+
+                <p className="mt-8 text-xs font-light text-center text-gray-700">
+                    {" "}
+                    Don't have an account?{" "}
+                    <a href="/register" className="font-medium text-purple-600 hover:underline">
+                        Sign up
+                    </a>
+                </p>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
   );
 };
 
