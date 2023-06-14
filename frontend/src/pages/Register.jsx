@@ -14,23 +14,26 @@ function Register() {
     }
 
     async function handleRegister() {
-        const payload = {
-            method: 'POST',
-            mode: 'cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                username: user,
-                password: pass
-            })
-        };
-        
-        console.log(user);
-        console.log(pass);
-        console.log(payload);
+            const payload = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: user,
+                    password: pass
+                })
+            };
 
-        const resp = await fetch('http://localhost:5000/auth/register', payload);
-        const data = await resp.json();
-        console.log(data);
+            fetch('http://127.0.0.1:5000/auth/register', payload)
+                .then((response) => {
+                    if(!response.ok) throw new Error(response.status);
+                    else return response.json();
+                })
+                .then((data) => {
+                    console.log('message: ' + data.message);
+                })
+                .catch((error) => {
+                    console.log('error: ' + error);
+                });
     }
 
     return (
@@ -41,36 +44,30 @@ function Register() {
                 </h1>
                 <form className="mt-6">
                     <div className="mb-2">
-                        <label htmlFor="usernamae" className="block text-sm font-semibold text-gray-800">
-                            Username
+                        <label for="email" className="block text-sm font-semibold text-gray-800">
+                            Email
                         </label>
                         <input
-                            id="username"
-                            name="username"
-                            type="text"
-                            autoComplete="username"
-                            placeholder="Enter username"
-                            onChange={userChange}
-                            value={user}
+                            type="email"
                             className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"/>
                     </div>
                     <div className="mb-2">
                         <label
-                            htmlFor="password"
+                            for="password"
                             className="block text-sm font-semibold text-gray-800">
                             Password
                         </label>
                         <input
-                            id="password"
-                            name="password"
-                            type="text"
-                            autoComplete="current-password"
-                            placeholder="Password"
-                            onChange={passChange}
-                            value={pass}
+                            type="password"
                             className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
+                    <a
+                        href="#"
+                        className="text-xs text-purple-600 hover:underline"
+                    >
+                        Forgot Password?
+                    </a>
                     <div className="mt-6">
                         <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600" onClick={handleRegister}>
                             Login

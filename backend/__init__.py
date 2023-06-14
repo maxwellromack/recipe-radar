@@ -9,7 +9,6 @@ def create_app(test_config = None):
         SECRET_KEY = 'dev', # change this before deploying
         DATABASE = os.path.join(app.instance_path, 'backend.sqlite'),
     )
-    app.config['CORS_HEADERS'] = 'Content-Type'
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent = True)
