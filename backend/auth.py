@@ -2,7 +2,7 @@ import functools
 from flask import Blueprint, request, jsonify, session, g
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.db import get_db
-from flask_cors import cross_origin
+from flask_cors import cross_origin, CORS
 
 def init_bin_str():
     size = 0
@@ -17,8 +17,9 @@ def init_bin_str():
     return bin_str
 
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
+CORS(bp)
 
-@bp.route('/register', methods = ['POST'])
+@bp.route('/register', methods = ['GET', 'POST'])
 @cross_origin(origin = '*')
 def register():
     data = request.get_json()
