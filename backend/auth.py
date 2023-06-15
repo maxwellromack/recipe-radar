@@ -58,7 +58,8 @@ def register():
             except db.IntegrityError:   # username already exists
                 error = f"User {username} is already registered."
             else:
-                res = corsify_response(jsonify({'message': 'Registration success'}))
+                res = make_response()
+                #res = corsify_response(jsonify({'message': 'Registration success'}))
                 res.status_code = 201
                 return res
 
