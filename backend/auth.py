@@ -58,14 +58,13 @@ def register():
             except db.IntegrityError:   # username already exists
                 error = f"User {username} is already registered."
             else:
-                #res = make_response()
-                res = corsify_response(make_response(jsonify({'message': 'Registration success'})))
+                res = corsify_response(jsonify({'message': 'Registration success'}))
                 res.status_code = 201
                 return res
-
-        res =  corsify_response(jsonify({'error': error}))
-        res.status_code = 400
-        return res
+            
+            res =  corsify_response(jsonify({'error': error}))
+            res.status_code = 400
+            return res
 
 @bp.route('/login', methods = ['POST'])
 def login():

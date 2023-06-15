@@ -24,16 +24,8 @@ function Register() {
             };
 
             fetch('http://127.0.0.1:5000/auth/register', payload)
-                .then((response) => {
-                    if(!response.ok) throw new Error(response.status);
-                    else return response.json();
-                })
-                .then((data) => {
-                    console.log('message: ' + data.message);
-                })
-                .catch((error) => {
-                    console.log('error: ' + error);
-                });
+                .then(response => response.text())
+                .then(text => console.log(text))
     }
 
     return (
