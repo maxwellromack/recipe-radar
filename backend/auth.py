@@ -19,7 +19,7 @@ def init_bin_str():
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
 @bp.route('/register', methods = ['POST'])
-@cross_origin(origin = '*')
+@cross_origin()
 def register():
     data = request.get_json()
     username = data.get('username')
