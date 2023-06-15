@@ -44,21 +44,33 @@ function Register() {
                 </h1>
                 <form className="mt-6">
                     <div className="mb-2">
-                        <label for="email" className="block text-sm font-semibold text-gray-800">
-                            Email
+                        <label htmlFor="username" className="block text-sm font-semibold text-gray-800">
+                            Username
                         </label>
                         <input
-                            type="email"
+                            id="username"
+                            name="username"
+                            type="text"
+                            autoComplete="username"
+                            placeholder="Enter username"
+                            onChange={userChange}
+                            value={user}
                             className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"/>
                     </div>
                     <div className="mb-2">
                         <label
-                            for="password"
+                            htmlFor="password"
                             className="block text-sm font-semibold text-gray-800">
                             Password
                         </label>
                         <input
-                            type="password"
+                            id="password"
+                            name="password"
+                            type="text"
+                            autoComplete="current-password"
+                            placeholder="Password"
+                            onChange={passChange}
+                            value={pass}
                             className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
