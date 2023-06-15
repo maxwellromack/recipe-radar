@@ -17,6 +17,15 @@ def test_register(client):
     assert response.status_code == 201
     assert response.get_json() == {'message': 'Registration success'}
 
+def test_register_frontend_sim(client):
+    payload = {"username":"a","password":"a"}
+
+    json_payload = json.dumps(payload)
+    response = client.post('/auth/register', data = json_payload.encode('utf8'), content_type = 'application/json')
+    
+    assert response.status_code == 201
+    assert response.get_json() == {'message': 'Registration success'}
+
 @pytest.mark.parametrize(('username', 'password', 'message'), (
     ('', '', 'Username is required'),
     ('robert', '', 'Password is required'),

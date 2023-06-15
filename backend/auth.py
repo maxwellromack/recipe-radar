@@ -62,9 +62,9 @@ def register():
                 res.status_code = 201
                 return res
             
-            res =  corsify_response(jsonify({'error': error}))
-            res.status_code = 400
-            return res
+        res =  corsify_response(jsonify({'error': error}))
+        res.status_code = 400
+        return res
 
 @bp.route('/login', methods = ['POST'])
 def login():
