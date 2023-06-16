@@ -23,8 +23,10 @@ function Register() {
                 })
             };
 
-            fetch('http://127.0.0.1:5000/auth/register', payload)
-                .then(response => response.json())
+            await fetch('http://127.0.0.1:5000/auth/register', payload)
+                .then(response => {
+                    return response.json();
+                })
                 .then(data => {
                     console.log(data)
                 })

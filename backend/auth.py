@@ -2,6 +2,7 @@ import functools
 from flask import Blueprint, request, jsonify, session, g, make_response
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.db import get_db
+import json
 
 def init_bin_str():
     size = 0
@@ -17,13 +18,13 @@ def init_bin_str():
 
 def build_cors_preflight():
     response = make_response()
-    response.headers.add("Access-Control-Allow-Origin", "*")    # allows requests from any origin
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
     response.headers.add("Access-Control-Allow-Headers", "*")   # insecure!
     response.headers.add("Access-Control-Allow-Methods", "*")
     return response
 
 def corsify_response(response):
-    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
     return response
 
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
@@ -39,6 +40,9 @@ def register():
         db = get_db()
         error = None
 
+        # debug
+        print(data)
+
         if not username:
             error = 'Username is required'
         elif ' ' in username:
@@ -47,6 +51,9 @@ def register():
             error = 'Password is required'
         elif ' ' in password:
             error = 'Password cannot contain spaces'
+
+        # debug
+        print(error)
 
         if error is None:
             try:    # try to add the new user to the database
@@ -60,10 +67,18 @@ def register():
             else:
                 res = corsify_response(jsonify({'message': 'Registration success'}))
                 res.status_code = 201
+                
+                # debug
+                print(res)
+
                 return res
             
         res =  corsify_response(jsonify({'error': error}))
         res.status_code = 400
+
+        # debug
+        print(res)
+
         return res
 
 @bp.route('/login', methods = ['POST'])
