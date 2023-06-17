@@ -31,7 +31,7 @@ bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
 @bp.route('/register', methods = ['POST', 'OPTIONS'])
 def register():
-    if request.method == 'OPTIONS': # preflight
+    if request.method == 'OPTIONS':
         return build_cors_preflight()
     else:
         data = request.get_json()
@@ -39,9 +39,6 @@ def register():
         password = data.get('password')
         db = get_db()
         error = None
-
-        # debug
-        print(data)
 
         if not username:
             error = 'Username is required'
@@ -51,9 +48,6 @@ def register():
             error = 'Password is required'
         elif ' ' in password:
             error = 'Password cannot contain spaces'
-
-        # debug
-        print(error)
 
         if error is None:
             try:    # try to add the new user to the database
@@ -67,18 +61,10 @@ def register():
             else:
                 res = corsify_response(jsonify({'message': 'Registration success'}))
                 res.status_code = 201
-                
-                # debug
-                print(res)
-
                 return res
             
         res =  corsify_response(jsonify({'error': error}))
         res.status_code = 400
-
-        # debug
-        print(res)
-
         return res
 
 @bp.route('/login', methods = ['POST'])
