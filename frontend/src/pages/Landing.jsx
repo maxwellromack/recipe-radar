@@ -44,7 +44,7 @@ const Landing = () => {
         <span
           className="md:text-5xl sm:text-4xl text-xl font-bold md:pl-4 pl-2"
           ref={el}
-          style={{ height: '2.9rem' }} // Set a fixed height for the container
+          style={{ height: '2.9rem' }} // KEEP AT 2.9 SO ITS IN LINE WITH TEXT
         />
       </div>
       <p className="md:text-2xl text-xl font-bold text-gray-500">
