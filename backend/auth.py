@@ -67,30 +67,37 @@ def register():
         res.status_code = 400
         return res
 
-@bp.route('/login', methods = ['POST'])
+@bp.route('/login', methods = ['POST', 'OPTIONS'])
 def login():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    db = get_db()
-    error = None
+    if request.method == 'OPTIONS':
+        return build_cors_preflight()
+    else:
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        db = get_db()
+        error = None
 
-    # get the user entry in the user table, if it exists
-    user = db.execute(
-        'SELECT * FROM user WHERE username = ?', (username,)
-    ).fetchone()
+        # get the user entry in the user table, if it exists
+        user = db.execute(
+            'SELECT * FROM user WHERE username = ?', (username,)
+        ).fetchone()
 
-    if user is None:
-        error = 'Incorrect username'
-    elif not check_password_hash(user['password'], password):
-        error =  'Incorrect password'
+        if user is None:
+            error = 'Incorrect username'
+        elif not check_password_hash(user['password'], password):
+            error =  'Incorrect password'
 
-    if error is None:
-        session.clear()
-        session['user_id'] = user['id']
-        return jsonify({'message': 'Login success'}), 200
-    
-    return jsonify({'error': error}), 400
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            res =  corsify_response(jsonify({'message': 'Login success'}))
+            res.status_code = 200
+            return res
+        
+        res =  corsify_response(jsonify({'error': error}))
+        res.status_code = 400
+        return res
 
 @bp.before_app_request
 def load_current_user():

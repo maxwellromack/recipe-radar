@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 	const [user, setUsername] = useState('');
@@ -13,10 +13,35 @@ const Login = () => {
 	const passChange = event => {
 		setPassword(event.target.value);
 	}
-	const navigate = useNavigate();
 
-	const handleLogin = () => {
-		navigate('/recipiemain');
+	//const navigate = useNavigate();
+
+	const handleLogin = async event => {
+		event.preventDefault();
+        try {
+            await fetch('http://localhost:5000/auth/login', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: user,
+                    password: pass
+                })
+            })
+            .then(Response => Response.json())
+            .then(data => {
+                if (data.error) {   // unsuccessful login
+                    alert(data.error);
+                } else {
+                    // TODO: navigate to main page
+                }
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+
 	};
 
 	return (
@@ -28,12 +53,19 @@ const Login = () => {
 				<form className="mt-6">
 					<div className="mb-2">
 						<label
-							htmlFor="email"
+							htmlFor="username"
 							className="block text-sm font-semibold text-gray-800">
-							Email
+							Username
 						</label>
 						<input
-							type="email"
+							id="username"
+                            name="username"
+                            type="text"
+                            autoComplete="username"
+                            placeholder="Enter username"
+                            onChange={userChange}
+                            value={user}
+
 							className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>
@@ -44,19 +76,25 @@ const Login = () => {
 							Password
 						</label>
 						<input
-							type="password"
+							id="password"
+                            name="password"
+                            type="text"
+                            autoComplete="current-password"
+                            placeholder="Password"
+                            onChange={passChange}
+                            value={pass}
 							className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>
-					<a
+					{/* <a
 						href="#"
 						className="text-xs text-purple-600 hover:underline">
 						Forgot Password?
-					</a>
+					</a> */}
 					<div className="mt-6">
 						<button
 							className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
-							onClick={handleLogin} // Update onClick event handler 
+							onClick={handleLogin}
 						>
 							Login
 						</button>
