@@ -5,7 +5,7 @@ import { IconName } from '@heroicons/react/solid';
 
 import customLogo from '../images/logo.svg';
 
-const RecipieMain = () => {
+const RecipeMain = () => {
     return (
         <div>
             <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
@@ -30,7 +30,7 @@ const RecipieMain = () => {
                         </svg>
 
 
-                            <span className="mx-4 font-medium">Recipies</span>
+                            <span className="mx-4 font-medium">Recipes</span>
                         </a>
 
                         <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-purple-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
@@ -38,7 +38,7 @@ const RecipieMain = () => {
                                 <path fillRule="evenodd" d="M2.625 6.75a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875 0A.75.75 0 018.25 6h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75zM2.625 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zM7.5 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12A.75.75 0 017.5 12zm-4.875 5.25a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875 0a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75z" clipRule="evenodd" />
                             </svg>
 
-                            <span className="mx-4 font-medium">Edit Recipies</span>
+                            <span className="mx-4 font-medium">Edit Recipes</span>
                         </a>
 
                         <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-purple-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
@@ -75,4 +75,4 @@ const RecipieMain = () => {
     );
 }
 
-export default RecipieMain;
+export default RecipeMain;
