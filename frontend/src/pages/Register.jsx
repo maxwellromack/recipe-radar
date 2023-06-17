@@ -1,5 +1,5 @@
 import React , { useState } from 'react';
-import { Navigate } from 'react-router';
+//import { Navigate } from 'react-router';
 import 'tailwindcss/tailwind.css';
 
 function Register() {
