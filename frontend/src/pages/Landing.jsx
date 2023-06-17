@@ -2,8 +2,8 @@ import React from 'react';
 import 'tailwindcss/tailwind.css';
 import Typed from 'typed.js';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRightIcon } from '@heroicons/react/solid';
-import customLogo from '../images/logo.svg';
+//import { ArrowRightIcon } from '@heroicons/react/solid';
+//import customLogo from '../images/logo.svg';
 
 const Landing = () => {
   const el = React.useRef(null);
@@ -11,7 +11,7 @@ const Landing = () => {
 
   React.useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: ['CHEFS!', 'COOKS', 'YOU'],
+      strings: ['CHEFS', 'COOKS', 'YOU'],
       typeSpeed: 100,
       loop: true,
     });
@@ -23,7 +23,7 @@ const Landing = () => {
 
   return (
     <div className="w-screen h-screen bg-gradient-to-tr from-[#f9f4ff] via-[#e4defc] to-[#ffffff] flex flex-col justify-center items-center relative">
-      <a
+      {/* <a
         href="/login" // Updated link to navigate to "/login"
         className="absolute top-4 right-8 flex items-center text-sm font-semibold leading-6 text-gray-900"
         style={{ marginLeft: '-1rem' }}>
@@ -31,7 +31,7 @@ const Landing = () => {
       </a>
       <div className="absolute top-4 left-4">
         <img src={customLogo} alt="Logo" className="h-10 w-10" />
-      </div>
+      </div> */}
      
       <p className="text-purple-600 font-bold p-2">CREATE RECIPES WITH RECIPE RADAR</p>
       <h1 className="md:text-7xl sm:text-6xl text-4xl font-bold md:py-6">
@@ -44,7 +44,7 @@ const Landing = () => {
         <span
           className="md:text-5xl sm:text-4xl text-xl font-bold md:pl-4 pl-2"
           ref={el}
-          style={{ height: '4.5rem' }} // Set a fixed height for the container
+          style={{ height: '2.9rem' }} // KEEP AT 2.9 SO ITS IN LINE WITH TEXT
         />
       </div>
       <p className="md:text-2xl text-xl font-bold text-gray-500">
