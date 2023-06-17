@@ -17,7 +17,7 @@ function Register() {
     const handleRegister = async event => {
         event.preventDefault();
         try {
-            await fetch('http://localhost:5000/auth/register', {
+            await fetch('http://127.0.0.1:5000/auth/register', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'
