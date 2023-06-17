@@ -1,4 +1,5 @@
 import React , { useState } from 'react';
+import { Navigate } from 'react-router';
 import 'tailwindcss/tailwind.css';
 
 function Register() {
@@ -26,8 +27,15 @@ function Register() {
                     password: pass
                 })
             })
-                .then(Response => console.log(Response))
-                .catch(err => console.log(err));
+            .then(Response => Response.json())
+            .then(data => {
+                if (data.error) {   // unsuccessful registration
+                    alert(data.error);
+                } else {
+                    // TODO: navigate to login page
+                }
+            });
+
         } catch (error) {
             console.log(error);
         }
