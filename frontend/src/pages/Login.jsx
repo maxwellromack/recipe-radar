@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 	const [user, setUsername] = useState('');
@@ -13,10 +13,33 @@ const Login = () => {
 	const passChange = event => {
 		setPassword(event.target.value);
 	}
-	const navigate = useNavigate();
+	//const navigate = useNavigate();
 
-	const handleLogin = () => {
-		navigate('/recipiemain');
+	const handleLogin = async event => {
+		event.preventDefault();
+        try {
+            await fetch('http://localhost:5000/auth/login', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: user,
+                    password: pass
+                })
+            })
+            .then(Response => Response.json())
+            .then(data => {
+                if (data.error) {   // unsuccessful login
+                    alert(data.error);
+                } else {
+                    // TODO: navigate to main page
+                }
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
 	};
 
 	return (
@@ -68,7 +91,7 @@ const Login = () => {
 					<div className="mt-6">
 						<button
 							className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
-							onClick={handleLogin} // Update onClick event handler 
+							onClick={handleLogin}
 						>
 							Login
 						</button>
