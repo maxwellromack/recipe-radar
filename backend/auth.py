@@ -1,8 +1,8 @@
 import functools
-from flask import Blueprint, request, jsonify, session, g
+from flask import Blueprint, request, jsonify, session, g, make_response
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.db import get_db
-from flask_cors import cross_origin
+import json
 
 def init_bin_str():
     size = 0
@@ -16,42 +16,58 @@ def init_bin_str():
 
     return bin_str
 
+def build_cors_preflight():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    response.headers.add("Access-Control-Allow-Headers", "*")   # insecure!
+    response.headers.add("Access-Control-Allow-Methods", "*")
+    return response
+
+def corsify_response(response):
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    return response
+
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
-@bp.route('/register', methods = ['POST'])
-@cross_origin(origin = '*')
+@bp.route('/register', methods = ['POST', 'OPTIONS'])
 def register():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    db = get_db()
-    error = None
+    if request.method == 'OPTIONS':
+        return build_cors_preflight()
+    else:
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        db = get_db()
+        error = None
 
-    if not username:
-        error = 'Username is required'
-    elif ' ' in username:
-        error = 'Username cannot contain spaces'
-    elif not password:
-        error = 'Password is required'
-    elif ' ' in password:
-        error = 'Password cannot contain spaces'
+        if not username:
+            error = 'Username is required'
+        elif ' ' in username:
+            error = 'Username cannot contain spaces'
+        elif not password:
+            error = 'Password is required'
+        elif ' ' in password:
+            error = 'Password cannot contain spaces'
 
-    if error is None:
-        try:    # try to add the new user to the database
-            db.execute( 
-                'INSERT INTO user (username, password, ingredients) VALUES (?, ?, ?)',  # due to the way parameter substitution is
-                (username, generate_password_hash(password), init_bin_str()),           # handled in python we don't need to
-            )                                                                           # worry about sql injection! :D
-            db.commit()
-        except db.IntegrityError:   # username already exists
-            error = f"User {username} is already registered."
-        else:
-            return jsonify({'message': 'Registration success'}), 201
-
-    return jsonify({'error': error}), 400
+        if error is None:
+            try:    # try to add the new user to the database
+                db.execute( 
+                    'INSERT INTO user (username, password, ingredients) VALUES (?, ?, ?)',  # due to the way parameter substitution is
+                    (username, generate_password_hash(password), init_bin_str()),           # handled in python we don't need to
+                )                                                                           # worry about sql injection! :D
+                db.commit()
+            except db.IntegrityError:   # username already exists
+                error = f"User {username} is already registered."
+            else:
+                res = corsify_response(jsonify({'message': 'Registration success'}))
+                res.status_code = 201
+                return res
+            
+        res =  corsify_response(jsonify({'error': error}))
+        res.status_code = 400
+        return res
 
 @bp.route('/login', methods = ['POST'])
-@cross_origin(origin = '*')
 def login():
     data = request.get_json()
     username = data.get('username')
@@ -88,7 +104,6 @@ def load_current_user():
         ).fetchone()
 
 @bp.route('/logout')
-@cross_origin(origin = '*')
 def logout():
     session.clear()
     return jsonify({'message': 'Logout success'}), 200
