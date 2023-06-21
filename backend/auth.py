@@ -94,7 +94,8 @@ def login():
             session['user_id'] = user['id']
             res = corsify_response(jsonify({'message': 'Login success'}))
             res.status_code = 200
-            res.set_cookie('user', value = str(session['user_id']), domain = '127.0.0.1')
+            #res.set_cookie('user', value = str(session['user_id']), domain = '127.0.0.1')
+            
             return res
         
         res =  corsify_response(jsonify({'error': error}))

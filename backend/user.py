@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, session, make_response
-from backend.auth import login_required, get_db
+from backend.auth import get_db
 import numpy as np
 import sys
 
@@ -36,7 +36,7 @@ def corsify_response(response):
 bp = Blueprint('user', __name__, url_prefix = '/user')
 
 @bp.route('/add', methods = ['POST', 'OPTIONS'])
-@login_required
+#@login_required
 def add():
     if request.method == 'OPTIONS':
         return build_cors_preflight()
@@ -135,8 +135,3 @@ def add():
             res = corsify_response(jsonify({'error': error}))
             res.status_code = 400
             return res
-
-if len(sys.argv) == 2:
-    if sys.argv[1] == 'debug':
-        print(get_max_length())
-        print(get_num_ingredients())
