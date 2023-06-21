@@ -18,13 +18,14 @@ def init_bin_str():
 def build_cors_preflight():
     response = make_response()
     response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
-    response.headers.add("Access-Control-Allow-Headers", "*")   # insecure!
+    response.headers.add("Access-Control-Allow-Headers", 'content-type')   # insecure!
     response.headers.add("Access-Control-Allow-Methods", "*")
-    response.headers.add("Access-Control-Allow-Credentials", "True")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
     return response
 
 def corsify_response(response):
     response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
     return response
 
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
@@ -104,8 +105,6 @@ def login():
 def load_current_user():
     user_id = session.get('user_id')
     
-    print(user_id)
-
     if user_id is None:
         g.user = None
     else:
