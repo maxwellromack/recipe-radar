@@ -35,7 +35,7 @@ const Login = () => {
                 if (data.error) {   // unsuccessful login
                     alert(data.error);
                 } else {
-                    // TODO: navigate to main page
+                    // TODO: navigate to main page on successful login
 					navigate('/recipemain');
 
                 }

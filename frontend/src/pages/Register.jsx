@@ -1,5 +1,5 @@
 import React , { useState } from 'react';
-//import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import 'tailwindcss/tailwind.css';
 
 function Register() {
@@ -13,6 +13,9 @@ function Register() {
     const passChange = event => {
         setPassword(event.target.value);
     }
+
+    const navigate = useNavigate();
+
 
     const handleRegister = async event => {
         event.preventDefault();
@@ -33,6 +36,7 @@ function Register() {
                     alert(data.error);
                 } else {
                     // TODO: navigate to login page
+                    navigate('/recipemain');
                 }
             });
 
