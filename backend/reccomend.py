@@ -40,13 +40,16 @@ def build_user_arr(string):
 def build_recipe_arr(db, length):
     arr = np.zeros((length, get_num_ingredients()), dtype = 'int')
     arr_r = 0
-    cursor = db.execute('SELECT ingredients FROM recipe')
 
-    for row in cursor:
-        string = row
+    for arr_r in range(length):
+        id = arr_r + 1
+        string = (db.execute('SELECT ingredients FROM recipe WHERE id = ?', (id,),)).fetchone()[0]
+        string = string.strip()
         arr_c = 0
         for c in string:
-            arr[arr_r, arr_c]
+            if c == '\n':
+                break
+            arr[arr_r, arr_c] = c
             arr_c += 1
     
     return arr
@@ -82,11 +85,8 @@ def update():
             neighbors = np.empty(length)
             for row in range(length):
                 neighbors[row] = np.linalg.norm(user_arr - recipe_arr[row])
-            
+
             sorted = np.argsort(neighbors)
-
-            print(str(sorted[1:6]))
-
             first = (db.execute(
                 'SELECT title FROM recipe WHERE id = ?',
                 (int(sorted[1]),),
