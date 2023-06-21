@@ -1,5 +1,5 @@
-from flask import Blueprint, request, jsonify, session
-from backend.auth import login_required, get_db, build_cors_preflight, corsify_response
+from flask import Blueprint, request, jsonify, session, make_response
+from backend.auth import get_db
 import numpy as np
 import sys
 
@@ -20,17 +20,32 @@ def get_num_ingredients():
     
     return size
 
+def build_cors_preflight():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    response.headers.add("Access-Control-Allow-Headers", 'content-type')   # insecure!
+    response.headers.add("Access-Control-Allow-Methods", "*")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    return response
+
+def corsify_response(response):
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    return response
+
 bp = Blueprint('user', __name__, url_prefix = '/user')
 
 @bp.route('/add', methods = ['POST', 'OPTIONS'])
-@login_required
+#@login_required
 def add():
     if request.method == 'OPTIONS':
         return build_cors_preflight()
     else:
         data = request.get_json()
         input = data.get('input')
-        user_id = session.get('user_id')
+        #user_id = request.cookies.get('user_id')
+        with open('cookie.txt', 'r') as f:
+            user_id = int(f.readline())
         length = get_max_length()
         size = get_num_ingredients()
         error = None
@@ -40,7 +55,9 @@ def add():
         input = input.replace('-', ' ')
 
         stripped = input.replace(' ', '')
-        if len(stripped) == 0:
+        if user_id is None:
+            error = 'User is not logged in'
+        elif len(stripped) == 0:
             error = 'Input is required'
         elif not stripped.isalpha():
             error = 'Input must contain only letters and spaces'
@@ -122,8 +139,3 @@ def add():
             res = corsify_response(jsonify({'error': error}))
             res.status_code = 400
             return res
-
-if len(sys.argv) == 2:
-    if sys.argv[1] == 'debug':
-        print(get_max_length())
-        print(get_num_ingredients())

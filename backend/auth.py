@@ -1,4 +1,4 @@
-import functools
+import functools, os
 from flask import Blueprint, request, jsonify, session, g, make_response
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.db import get_db
@@ -18,13 +18,14 @@ def init_bin_str():
 def build_cors_preflight():
     response = make_response()
     response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
-    response.headers.add("Access-Control-Allow-Headers", "*")   # insecure!
+    response.headers.add("Access-Control-Allow-Headers", 'content-type')   # insecure!
     response.headers.add("Access-Control-Allow-Methods", "*")
-    response.headers.add("Access-Control-Allow-Credentials", "True")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
     return response
 
 def corsify_response(response):
     response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
     return response
 
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
@@ -93,7 +94,11 @@ def login():
             session['user_id'] = user['id']
             res = corsify_response(jsonify({'message': 'Login success'}))
             res.status_code = 200
-            res.set_cookie('user', value = str(session['user_id']), domain = '127.0.0.1')
+
+            with open('cookie.txt', 'w') as f:  # this is the hackiest thing i have ever written in my entire life
+                f.write(str(user['id']))
+                f.close()
+
             return res
         
         res =  corsify_response(jsonify({'error': error}))
@@ -104,8 +109,6 @@ def login():
 def load_current_user():
     user_id = session.get('user_id')
     
-    print(user_id)
-
     if user_id is None:
         g.user = None
     else:
@@ -116,7 +119,15 @@ def load_current_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return jsonify({'message': 'Logout success'}), 200
+    try:
+        os.remove('cookie.txt')
+    except:
+        print("Cookie file not found!")
+
+    
+    res = corsify_response(jsonify({'message': 'Logout success'}))
+    res.status_code = 200
+    return res
 
 def login_required(view):
     @functools.wraps(view)

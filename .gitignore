@@ -16,3 +16,5 @@ build/
 
 backend/unconverted_recipes
 backend/recipes/dirty
+
+cookie.txt
