@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 	const [user, setUsername] = useState('');
@@ -14,7 +14,7 @@ const Login = () => {
 		setPassword(event.target.value);
 	}
 
-	//const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const handleLogin = async event => {
 		event.preventDefault();
@@ -35,6 +35,8 @@ const Login = () => {
                     alert(data.error);
                 } else {
                     // TODO: navigate to main page
+					navigate('/recipemain');
+
                 }
             });
 
