@@ -1,6 +1,6 @@
 import React , { useState } from 'react';
-//import { Navigate } from 'react-router';
 import 'tailwindcss/tailwind.css';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const [user, setUsername] = useState('');
@@ -13,6 +13,8 @@ function Register() {
     const passChange = event => {
         setPassword(event.target.value);
     }
+
+    const navigate = useNavigate();
 
     const handleRegister = async event => {
         event.preventDefault();
@@ -32,7 +34,7 @@ function Register() {
                 if (data.error) {   // unsuccessful registration
                     alert(data.error);
                 } else {
-                    // TODO: navigate to login page
+                    navigate('/login');
                 }
             });
 
