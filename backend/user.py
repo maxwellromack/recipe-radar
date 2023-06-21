@@ -43,7 +43,9 @@ def add():
     else:
         data = request.get_json()
         input = data.get('input')
-        user_id = session.get('user_id')
+        #user_id = request.cookies.get('user_id')
+        with open('cookie.txt', 'r') as f:
+            user_id = int(f.readline())
         length = get_max_length()
         size = get_num_ingredients()
         error = None
@@ -53,7 +55,9 @@ def add():
         input = input.replace('-', ' ')
 
         stripped = input.replace(' ', '')
-        if len(stripped) == 0:
+        if user_id is None:
+            error = 'User is not logged in'
+        elif len(stripped) == 0:
             error = 'Input is required'
         elif not stripped.isalpha():
             error = 'Input must contain only letters and spaces'
