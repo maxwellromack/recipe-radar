@@ -1,11 +1,41 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
-import { IconName } from '@heroicons/react/solid';
-
 import customLogo from '../images/logo.svg';
 
 const EditRecipe = () => {
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const first = document.getElementById('firstRecipe');
+    const second = document.getElementById('secondRecipe');
+    const third = document.getElementById('thirdRecipe');
+    const fourth = document.getElementById('fourthRecipe');
+    const fifth = document.getElementById('fifthRecipe');
+    try {
+      fetch('http://127.0.0.1:5000/rec/update', {
+          method: 'get',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+      })
+      .then(Response => Response.json())
+      .then(data => {
+          if (data.error) {   // bad input
+              alert(data.error);
+          } else {
+            first.textContent = data.first;
+            second.textContent = data.second;
+            third.textContent = data.third;
+            fourth.textContent = data.fourth;
+            fifth.textContent = data.fifth;
+          }
+      });
+
+  } catch (error) {
+      console.log(error);
+  }
+  });
   return (
+
     <div className="relative flex">
       <div className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
       <a className="mx-auto">
@@ -87,8 +117,7 @@ const EditRecipe = () => {
               <div class="flex items-center text-sm">
                 
                 <div>
-                  <p class="font-semibold text-black">Handmade Pizza</p>
-                  <p class="text-xs text-gray-600">Italian</p>
+                  <p id="firstRecipe" class="font-semibold text-black">firstRecipe</p>
                 </div>
               </div>
             </td>
@@ -99,8 +128,7 @@ const EditRecipe = () => {
               <div class="flex items-center text-sm">
                 
                 <div>
-                  <p class="font-semibold text-black">Pyongyang Cold Noodles</p>
-                  <p class="text-xs text-gray-600">Korean</p>
+                  <p id="secondRecipe" class="font-semibold text-black">secondRecipe</p>
                 </div>
               </div>
             </td>
@@ -111,8 +139,7 @@ const EditRecipe = () => {
               <div class="flex items-center text-sm">
                 
                 <div>
-                  <p class="font-semibold">Lamb Rogan Josh</p>
-                  <p class="text-xs text-gray-600">Indian</p>
+                  <p id="thirdRecipe" class="font-semibold">thirdRecipe</p>
                 </div>
               </div>
             </td>
@@ -122,8 +149,17 @@ const EditRecipe = () => {
             <td class="px-4 py-3 border">
               <div class="flex items-center text-sm">
                 <div>
-                  <p class="font-semibold">Philly CheeseSteak</p>
-                  <p class="text-xs text-gray-600">American</p>
+                  <p id="fourthRecipe" class="font-semibold">fourthRecipe</p>
+                </div>
+              </div>
+            </td>
+            <td class="px-4 py-3 border text-sm text-center">4.5</td>
+          </tr>
+          <tr class="text-gray-700">
+            <td class="px-4 py-3 border">
+              <div class="flex items-center text-sm">
+                <div>
+                  <p id="fifthRecipe" class="font-semibold">fifthRecipe</p>
                 </div>
               </div>
             </td>

@@ -28,7 +28,7 @@ const RecipeMain = () => {
             if (data.error) {   // bad input
                 alert(data.error);
             } else {
-                alert('Ingredient added');
+                alert(data.message);
             }
         });
 
