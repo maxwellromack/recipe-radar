@@ -35,6 +35,7 @@ function Register() {
                     alert(data.error);
                 } else {
                     navigate('/login');
+
                 }
             });
 
