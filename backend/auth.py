@@ -20,6 +20,7 @@ def build_cors_preflight():
     response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
     response.headers.add("Access-Control-Allow-Headers", "*")   # insecure!
     response.headers.add("Access-Control-Allow-Methods", "*")
+    response.headers.add("Access-Control-Allow-Credentials", "True")
     return response
 
 def corsify_response(response):

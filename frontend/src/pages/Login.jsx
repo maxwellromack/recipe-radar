@@ -21,6 +21,7 @@ const Login = () => {
         try {
             await fetch('http://127.0.0.1:5000/auth/login', {
                 method: 'post',
+				credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
