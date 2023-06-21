@@ -2,7 +2,6 @@ import functools
 from flask import Blueprint, request, jsonify, session, g, make_response
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.db import get_db
-import json
 
 def init_bin_str():
     size = 0
@@ -91,8 +90,9 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            res =  corsify_response(jsonify({'message': 'Login success'}))
+            res = corsify_response(jsonify({'message': 'Login success'}))
             res.status_code = 200
+            res.set_cookie('user', value = str(session['user_id']), domain = '127.0.0.1')
             return res
         
         res =  corsify_response(jsonify({'error': error}))
@@ -102,6 +102,8 @@ def login():
 @bp.before_app_request
 def load_current_user():
     user_id = session.get('user_id')
+    
+    print(user_id)
 
     if user_id is None:
         g.user = None
@@ -119,7 +121,9 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return jsonify({'error': 'Not signed in'}), 401
+            res = corsify_response(jsonify({'error': 'Not signed in'}))
+            res.status_code = 400
+            return res
     
         return view(**kwargs)
     return wrapped_view
