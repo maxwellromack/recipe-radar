@@ -1,5 +1,5 @@
-from flask import Blueprint, request, jsonify, session
-from backend.auth import login_required, get_db, build_cors_preflight, corsify_response
+from flask import Blueprint, request, jsonify, session, make_response
+from backend.auth import login_required, get_db
 import numpy as np
 import sys
 
@@ -19,6 +19,19 @@ def get_num_ingredients():
             pass
     
     return size
+
+def build_cors_preflight():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    response.headers.add("Access-Control-Allow-Headers", 'content-type')   # insecure!
+    response.headers.add("Access-Control-Allow-Methods", "*")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    return response
+
+def corsify_response(response):
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    return response
 
 bp = Blueprint('user', __name__, url_prefix = '/user')
 
