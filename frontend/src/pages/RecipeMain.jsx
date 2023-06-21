@@ -2,14 +2,13 @@ import React from 'react';
 import 'tailwindcss/tailwind.css';
 import { IconName } from '@heroicons/react/solid';
 
-
 import customLogo from '../images/logo.svg';
 
 const RecipeMain = () => {
-    return (
-        <div>
-            <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
-                <a className="mx-auto">
+  return (
+    <div className="relative flex">
+      <div className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+      <a className="mx-auto">
                     <img className="w-auto h-6 sm:h-7" src={customLogo} alt="Recipie Radar Logo" />
                 </a>
 
@@ -17,8 +16,8 @@ const RecipeMain = () => {
                     <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                         <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
                     </div>
-                    <h4 className="mx-2 mt-2 font-medium text-purple-600">User Name</h4>
-                    <p className="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">username@example.com</p>
+                    <h4 className="mx-2 mt-2 font-medium text-purple-600">John Doe</h4>
+                    <p className="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">Johndoe@gmail.com</p>
                 </div>
 
                 <div className="flex flex-col justify-between flex-1 mt-6">
@@ -70,9 +69,49 @@ const RecipeMain = () => {
 
                    
                 </div>
-            </aside>
+      </div>
+
+      <div className="flex-grow bg-gray-100 flex justify-center items-center"> {/* Added flex and justify-center */}
+        <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-purple-600 ring ring-2 ring-purple-600 lg:max-w-xl">
+          <h1 className="text-3xl font-semibold text-center text-purple-700">
+            Add Ingredient
+          </h1>
+          <form className="mt-6">
+          <div className="mb-2">
+              <label
+                htmlFor="ingredient"
+                className="block text-sm font-semibold text-gray-800"
+              >
+                Ingredient
+              </label>
+              <input
+                id="ingredient"
+                name="ingredient"
+                type="text"
+                autoComplete="off"
+                placeholder="Enter ingredient"
+                //onChange={ingredientChange}
+                //value={ingredient}
+                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              />
+            </div>
+            <div className="mt-6">
+              <button
+                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+                //onClick={handleAddIngredient}
+              >
+                Add Ingredient
+              </button>
+            </div>
+          </form>
         </div>
-    );
+      </div>
+
+    </div>
+  );
 }
 
 export default RecipeMain;
+
+
+
