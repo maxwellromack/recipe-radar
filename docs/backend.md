@@ -79,4 +79,5 @@ Request Type: GET
 The update endpoint updates the recommended recipes and should be run every time that the user accesses the page of recipes. The JSON payload that is returned will have a field 'recipes' that contains a string of recipe ids, separated by spaces in descending order by how much of a match the recipe is to the user's ingredients.
 
 Returns status code 400 if user ingredients are not set.
-Returns status code 200 if the recommendation system ran successfully.
+Returns status code 200 if recommendation system ran successfully.
+
