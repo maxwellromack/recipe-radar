@@ -10,5 +10,6 @@ CREATE TABLE user (
 
 CREATE TABLE recipe (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    ingredients TEXT
+    ingredients TEXT,
+    title TEXT
 );

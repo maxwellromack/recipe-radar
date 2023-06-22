@@ -80,3 +80,4 @@ The update endpoint updates the recommended recipes and should be run every time
 
 Returns status code 400 if user ingredients are not set.
 Returns status code 200 if recommendation system ran successfully.
+

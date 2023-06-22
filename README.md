@@ -11,6 +11,10 @@ WIP
 * Python 3.8.x or newer
 * [Flask](https://pypi.org/project/Flask/)
 * Recipe-Radar-API (Included)
+* [React](https://react.dev/)
+* [Node.js](https://nodejs.org/en)
+* [typed.js](https://github.com/mattboldt/typed.js/)
+* [React Router](https://reactrouter.com/en/main)
 
 ### Installing
 

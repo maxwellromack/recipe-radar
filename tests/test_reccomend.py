@@ -35,4 +35,4 @@ def test_update(client, auth, app):
     assert response.status_code == 200
     message = response.get_json()
     assert 'Matched' in message['message']
-    assert message['recipes'] == '[0 1]'
+    assert message['recipes'] == '0 1'

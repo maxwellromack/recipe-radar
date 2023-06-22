@@ -33,7 +33,7 @@ def update_recipes():
     db.commit()
 
     db.execute(
-        'CREATE TABLE recipe (id INTEGER PRIMARY KEY AUTOINCREMENT, ingredients BLOB)'
+        'CREATE TABLE recipe (id INTEGER PRIMARY KEY AUTOINCREMENT, ingredients BLOB, title TEXT)'
     )
     db.commit()
 
@@ -47,9 +47,14 @@ def update_recipes():
         for entry in dir:
             arr = np.zeros(size, dtype = 'int')
             index = 0
+            with open(entry.path, 'r') as recipe:
+                title = recipe.readline()
+                title = title[7:]
+
             with open('backend/ingredients_list.txt', 'r') as list:
                 while ingredient := list.readline():
                     with open(entry.path, 'r') as recipe:
+                        
                         if ingredient in recipe.read():
                             arr[index] = 1
                         index += 1
@@ -58,8 +63,8 @@ def update_recipes():
             bin_str = bin_str.replace(']','')
             data = bin_str.replace('[','')
             db.execute(
-                'INSERT INTO recipe (ingredients) VALUES (?)',
-                (data,)
+                'INSERT INTO recipe (ingredients, title) VALUES (?, ?)',
+                (data, title,)
             )
             db.commit()
             print("Added " + str(entry.name) + " to the database.")
